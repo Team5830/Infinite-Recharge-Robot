@@ -21,6 +21,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private ControlChooser m_controlChooser;
+  private SmartDashboardInterface m_smartDashboardInterface;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +33,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_controlChooser = new ControlChooser();
+    m_smartDashboardInterface = new SmartDashboardInterface();
+    m_smartDashboardInterface.SmartDashboardInit();
   }
 
   /**
@@ -47,6 +52,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    m_smartDashboardInterface.SmartDashboardPeriodic();
   }
 
   /**
@@ -66,6 +72,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_controlChooser.ControlInit(SmartDashboardInterface.controlType.getSelected());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -78,6 +85,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
   }
 
   @Override
@@ -89,6 +97,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_controlChooser.ControlInit(SmartDashboardInterface.controlType.getSelected());
   }
 
   /**
@@ -96,6 +105,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
   }
 
   @Override
