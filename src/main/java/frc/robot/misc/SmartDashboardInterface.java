@@ -2,7 +2,7 @@
  * @author Hunter Pugh
  */
 
-package frc.robot;
+package frc.robot.misc;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
