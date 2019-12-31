@@ -8,9 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.misc.ControlChooser;
+import frc.robot.misc.SensorReset;
 import frc.robot.misc.SmartDashboardInterface;
 
 /**
@@ -25,6 +27,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private ControlChooser m_controlChooser;
   private SmartDashboardInterface m_smartDashboardInterface;
+  private SensorReset m_sensorReset;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -37,7 +40,10 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_controlChooser = new ControlChooser();
     m_smartDashboardInterface = new SmartDashboardInterface();
+    m_sensorReset = new SensorReset();
+    
     m_smartDashboardInterface.SmartDashboardInit();
+    m_sensorReset.ResetSensors();
   }
 
   /**
@@ -55,6 +61,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     m_smartDashboardInterface.SmartDashboardPeriodic();
+
+    //Resets sensors when driver presses Shuffleboard button
+    if(SmartDashboard.getBoolean("Reset Sensors", false)) m_sensorReset.ResetSensors();
   }
 
   /**
