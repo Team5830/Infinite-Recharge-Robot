@@ -18,4 +18,10 @@ Whenever a change is required, an issue must be created.
 Whenever a developer decides to solve an issue, they must create a new branch with a relevant name. Upon completion, the code must be successfully simulated. Once completed, a pull request must be compared with `development` branch. An admin will merge it and delete the branch.
 
 ##### `stable` branch
-Weekly, after every function of all robot code is successfully simulated or tested on robot (if available), an admin will merge `development` with `stable`. No incomplete, broken, or buggy code will be merged with stable. Drivers and other robot operators should rely on this branch to always contain working code to test or drive with.
+After every function of all robot code is successfully simulated or tested on robot (if available), an admin will merge `development` with `stable`. No incomplete, broken, or buggy code will be merged with stable. Drivers and other robot operators should rely on this branch to always contain working code to test or drive with.
+
+##### Releases
+At the end of the week's workdays and after `development` is merged with `stable`, an admin will publish a release. The release numbering scheme is as follows:
+- Prekickoff: `v0.0-pre`
+- Weekly, during build season: `0.[week number]` (e.g. `v0.4` for end of week 4 release). Tick pre-release
+- Code for 1st competition and beyond: `[competition number].[weeks since]` (e.g. `v1.0` during 1st competition, `v2.4` during 4th week after 2nd competition)
