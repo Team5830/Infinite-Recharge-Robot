@@ -20,14 +20,8 @@ public class ControlPanelIndex extends CommandBase {
   boolean isItFinished = false;
   String gameData;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
   public ControlPanelIndex(ControlPanel subsystem) {
     m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
@@ -42,7 +36,7 @@ public class ControlPanelIndex extends CommandBase {
   public void execute() {
 
     //Spins the control panel wheel
-    m_subsystem.controlPanelMove();
+    m_subsystem.controlPanelMoveIndex();
 
     //Makes sure there is game data before trying to read it
     if(gameData.length() > 0){
