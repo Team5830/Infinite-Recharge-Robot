@@ -20,16 +20,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ControlPanel extends SubsystemBase {
   
-  private I2C.Port i2cPort = I2C.Port.kOnboard;
-  private ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-  private Spark controlPanel = new Spark(0);
+  private final I2C.Port i2cPort = I2C.Port.kOnboard;
+  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  private final Spark controlPanel = new Spark(0);
   Color detectedColor;
   String colorString;
   public static final ColorMatch m_colorMatcher = new ColorMatch();
-  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private final Color kBlueTarget = ColorMatch.makeColor(0.12, 0.42, 0.46);
+  private final Color kGreenTarget = ColorMatch.makeColor(0.167, 0.57, 0.26);
+  private final Color kRedTarget = ColorMatch.makeColor(0.53, 0.34, 0.14);
+  private final Color kYellowTarget = ColorMatch.makeColor(0.32, 0.555, 0.125);
   private Encoder m_encoder = new Encoder(4, 5);
   
   /**
@@ -40,7 +40,6 @@ public class ControlPanel extends SubsystemBase {
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget); 
-
     m_encoder.setDistancePerPulse(5000); //TODO set to 1 rotation of control panel
   }
 
@@ -61,6 +60,17 @@ public class ControlPanel extends SubsystemBase {
   }
 
   public String getColor(){
+    
+
+    return colorString;
+  }
+
+  public double getEncoder(){
+    return m_encoder.getDistance();
+  }
+
+  @Override
+  public void periodic() {
     Color detectedColor = m_colorSensor.getColor();
 
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
@@ -82,16 +92,6 @@ public class ControlPanel extends SubsystemBase {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
-
-    return colorString;
-  }
-
-  public double getEncoder(){
-    return m_encoder.getDistance();
-  }
-
-  @Override
-  public void periodic() {
     // This method will be called once per scheduler run
   }
 }

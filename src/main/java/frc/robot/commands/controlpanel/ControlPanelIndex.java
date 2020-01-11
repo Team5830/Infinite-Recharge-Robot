@@ -22,7 +22,7 @@ public class ControlPanelIndex extends CommandBase {
 
   public ControlPanelIndex(ControlPanel subsystem) {
     m_subsystem = subsystem;
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -47,24 +47,28 @@ public class ControlPanelIndex extends CommandBase {
         case 'B' :
         if(m_subsystem.getColor() == "Red"){
           isItFinished = true;
+          System.out.println("Red!");
         }
         break;
 
         case 'G' :
         if(m_subsystem.getColor() == "Yellow"){
           isItFinished = true;
+          System.out.println("Yellow!");
         }
         break;
 
         case 'R' :
         if(m_subsystem.getColor() == "Blue"){
           isItFinished = true;
+          System.out.println("Blue!");
         }
         break;
 
         case 'Y' :
         if(m_subsystem.getColor() == "Green"){
           isItFinished = true;
+          System.out.println("Green!");
         }
         break;
       }
@@ -77,6 +81,7 @@ public class ControlPanelIndex extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.controlPanelStop();
+    isItFinished = false;
   }
 
   // Returns true when the command should end.
