@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.controlpanel.ControlPanelIndex;
 import frc.robot.subsystems.ControlPanel;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +34,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 
   /**
@@ -52,6 +55,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
