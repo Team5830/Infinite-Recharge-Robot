@@ -7,19 +7,25 @@
 
 package frc.robot.commands.controlpanel;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ControlPanel;
 
 public class ControlPanelIndex extends CommandBase {
+  private final ControlPanel m_subsystem;
+  String gameData;
   /**
    * Creates a new ControlPanelIndex.
    */
-  public ControlPanelIndex() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public ControlPanelIndex(ControlPanel subsystem) {
+    m_subsystem = subsystem;
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
