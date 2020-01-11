@@ -14,6 +14,7 @@ import frc.robot.subsystems.ControlPanel;
 public class ControlPanelIndex extends CommandBase {
   private final ControlPanel m_subsystem;
   String gameData;
+  boolean isItFinished = false;
   /**
    * Creates a new ControlPanelIndex.
    */
@@ -31,16 +32,51 @@ public class ControlPanelIndex extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    if(gameData.length() > 0){
+      m_subsystem.controlPanelMoveIndex();
+
+      switch(gameData.charAt(0)){
+        case 'B':
+        if(m_subsystem.getColor() == "Red"){
+          isItFinished = true;
+        }
+        break;
+
+        case 'G':
+        if(m_subsystem.getColor() == "Yellow"){
+          isItFinished = true;
+        }
+        break;
+
+        case 'Y':
+        if(m_subsystem.getColor() == "Green"){
+          isItFinished = true;
+        }
+        break;
+
+        case 'R':
+        if(m_subsystem.getColor() == "Blue"){
+          isItFinished = true;
+        }
+        break;
+      }
+    } else {
+      System.out.println("Cannot run ControlPanelIndex, no FMS data!");
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_subsystem.controlPanelMoveStop();
+    isItFinished = false;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isItFinished;
   }
 }

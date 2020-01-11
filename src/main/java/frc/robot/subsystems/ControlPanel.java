@@ -60,6 +60,10 @@ public class ControlPanel extends SubsystemBase {
     controlPanel.set(0.5);
   }
 
+  public void controlPanelMoveStop(){
+    controlPanel.set(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
