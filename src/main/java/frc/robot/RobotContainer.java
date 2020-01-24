@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.controlpanel.ControlPanelIndex;
+import frc.robot.commands.controlpanel.DriveTrain_TankDrive;
 import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -22,8 +24,10 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ControlPanel m_controlPanel = new ControlPanel();
+  public static final ControlPanel m_controlPanel = new ControlPanel();
+  public static final DriveTrain m_driveTrain = new DriveTrain();
 
+  public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
   private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
 
 

@@ -15,6 +15,7 @@ public final class SmartDashboardInterface {
         controlType.setDefaultOption("EXAMPLE: Flightsticks & DIDBoard", 0);
         controlType.addOption("EXAMPLE: Arlene", 1);
         SmartDashboard.putData("Control Configuration", controlType);
+        SmartDashboard.putNumber("Speed Percentage", 100);
     }
 
     public void SmartDashboardPeriodic(){

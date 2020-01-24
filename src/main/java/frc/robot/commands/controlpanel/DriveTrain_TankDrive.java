@@ -8,26 +8,28 @@
 package frc.robot.commands.controlpanel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.misc.ControlChooser;
+import frc.robot.subsystems.DriveTrain;
 
 public class DriveTrain_TankDrive extends CommandBase {
+
   /**
    * Creates a new DriveTrain_TankDrive.
    */
-  public DriveTrain_TankDrive() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveTrain_TankDrive(DriveTrain subsystem) {
+    addRequirements(RobotContainer.m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-    
+  public void initialize() { 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    RobotContainer.m_driveTrain.TankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
   }
 
   // Called once the command ends or is interrupted.

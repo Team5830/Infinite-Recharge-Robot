@@ -51,13 +51,10 @@ public class Robot extends TimedRobot {
     m_smartDashboardInterface = new SmartDashboardInterface();
     m_sensorReset = new SensorReset();
     
-    
     m_smartDashboardInterface.SmartDashboardInit();
     m_sensorReset.ResetSensors();
 
-    SmartDashboard.putBoolean("Reverse Left Drivetrain?", false);
-    SmartDashboard.putBoolean("Reverse Right Drivetrain?", true);
-    SmartDashboard.putNumber("Speed Percentage", 100);
+    RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
 
   }
 
