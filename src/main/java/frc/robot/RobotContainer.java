@@ -15,6 +15,7 @@ import frc.robot.commands.DriveTrain_TankDrive;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LIDAR;
+import frc.robot.subsystems.gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -29,8 +30,8 @@ public class RobotContainer {
   public static final DriveTrain m_driveTrain = new DriveTrain();
   public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
   private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
-public static final LIDAR m_LIDAR = new LIDAR();
-
+  public static final LIDAR m_LIDAR = new LIDAR();
+  public static final gyro m_gyro = new gyro();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
