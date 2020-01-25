@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Counter;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   private ControlChooser m_controlChooser;
   private SmartDashboardInterface m_smartDashboardInterface;
   private SensorReset m_sensorReset;
+  private Counter m_LIDAR;
 
    //Joysticks
    
@@ -50,13 +52,17 @@ public class Robot extends TimedRobot {
     m_controlChooser = new ControlChooser();
     m_smartDashboardInterface = new SmartDashboardInterface();
     m_sensorReset = new SensorReset();
-    
+    m_LIDAR = new Counter(0); //plug the lidar into PWM 0
+    m_LIDAR.setMaxPeriod(1.00); //set the max period that can be measured
+    m_LIDAR.setSemiPeriodMode(true); //Set the counter to period measurement
+    m_LIDAR.reset();
     m_smartDashboardInterface.SmartDashboardInit();
     m_sensorReset.ResetSensors();
 
     RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
 
   }
+  final double off  = 10; //offset for sensor. test with tape measure
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -76,6 +82,12 @@ public class Robot extends TimedRobot {
 
     //Resets sensors when driver presses Shuffleboard button
     if(SmartDashboard.getBoolean("Reset Sensors", false)) m_sensorReset.ResetSensors();
+    double dist;
+    if(m_LIDAR.get() < 1)
+      dist = 0;
+    else
+      dist = (m_LIDAR.getPeriod()*1000000.0/10.0) - off; //convert to distance. sensor is high 10 us for every centimeter. 
+    SmartDashboard.putNumber("Distance", dist); //put the distance on the dashboard
   }
 
   /**
