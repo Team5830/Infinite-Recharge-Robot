@@ -21,6 +21,13 @@ import frc.robot.misc.ControlChooser;
 import frc.robot.misc.SensorReset;
 import frc.robot.misc.SmartDashboardInterface;
 import frc.robot.subsystems.gyro;
+<<<<<<< HEAD
+=======
+
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.DriverStation;
+>>>>>>> 830216b79c58d5a917c53291fc96fce21512f61b
 import edu.wpi.first.wpilibj.SerialPort;
 
 /**
@@ -88,6 +95,8 @@ public class Robot extends TimedRobot {
 
     //Resets sensors when driver presses Shuffleboard button
     if(SmartDashboard.getBoolean("Reset Sensors", false)) m_sensorReset.ResetSensors();
+
+    
   }
 
   /**
