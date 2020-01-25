@@ -34,9 +34,9 @@ public class DriveTrain extends SubsystemBase {
       sparkL2.set(-left * driveSpeed);
       sparkL3.set(-left * driveSpeed);
 
-      sparkR2.set(-right * driveSpeed);
-      sparkR1.set(-right * driveSpeed);
-      sparkR3.set(-right * driveSpeed);
+      sparkR2.set(right * driveSpeed);
+      sparkR1.set(right * driveSpeed);
+      sparkR3.set(right * driveSpeed);
     }
   }
       
