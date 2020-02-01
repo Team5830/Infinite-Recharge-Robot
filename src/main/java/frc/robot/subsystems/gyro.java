@@ -1,33 +1,16 @@
 package frc.robot.subsystems;
-<<<<<<< HEAD
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
-
-
-=======
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.kauailabs.navx.frc.AHRS;
->>>>>>> 830216b79c58d5a917c53291fc96fce21512f61b
 /**
  * 
  * @author Hunter P.
  *
  */
 public class gyro extends SubsystemBase {
-<<<<<<< HEAD
-
     private double gyroAngleClamped;
     private double gyroAngleClampedShifted;
     public static AHRS ahrs;
-
-=======
-    private double gyroAngleClamped;
-    private double gyroAngleClampedShifted;
-    public static AHRS ahrs;
->>>>>>> 830216b79c58d5a917c53291fc96fce21512f61b
     public void initDefaultCommand() {}
     
     //Converts the absolute gyro value to one between -180 and 180
