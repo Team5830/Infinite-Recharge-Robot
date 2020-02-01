@@ -21,7 +21,7 @@ public class LIDAR extends SubsystemBase {
 
   public LIDAR() {
 
-    m_LIDAR = new Counter(0); //plug the lidar into PWM 0
+    m_LIDAR = new Counter(24); //plug the lidar into PWM 0
     m_LIDAR.setMaxPeriod(1.00); //set the max period that can be measured
     m_LIDAR.setSemiPeriodMode(true); //Set the counter to period measurement
     m_LIDAR.reset();

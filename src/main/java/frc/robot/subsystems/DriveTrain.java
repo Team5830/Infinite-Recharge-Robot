@@ -7,41 +7,93 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.misc.ControlChooser;
 
 public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
+  private final SpeedControllerGroup m_rightMotors =
+  new SpeedControllerGroup(new Spark(DriveConstants.kRightMotor1Port), new Spark(DriveConstants.kRightMotor2Port));
+    //Motor Controllers (Left Side)
+    private final SpeedControllerGroup m_leftMotors =
+  new SpeedControllerGroup(new Spark(DriveConstants.kLeftMotor1Port), new Spark(DriveConstants.kLeftMotor2Port));
 
-   //Motor Controllers (Left Side)
-   Spark sparkL1 = new Spark(0);
-   Spark sparkL2 = new Spark(1);
-   Spark sparkL3 = new Spark(2);
- 
-   //Motor Controllers (Right Side)
-   Spark sparkR1 = new Spark(3);
-   Spark sparkR2 = new Spark(4);
-   Spark sparkR3 = new Spark(5);
+  private final DifferentialDrive m_drive = new DifferentialDrive (m_leftMotors, m_rightMotors);
 
-  public void TankDrive(double left, double right) {
-    double driveSpeed = SmartDashboard.getNumber("Speed Percentage", 100)/100;
+  private final Encoder m_rightEncoder = new Encoder(DriveConstants.kRightEncoderPorts[0], DriveConstants.kRightEncoderPorts[1], DriveConstants.kRightEncoderReversed);
+  
+   // The left-side drive encoder
+   private final Encoder m_leftEncoder =
+   new Encoder(DriveConstants.kLeftEncoderPorts[0], DriveConstants.kLeftEncoderPorts[1],
+               DriveConstants.kLeftEncoderReversed);
 
-    if(SmartDashboard.getBoolean("Reverse Left Drivetrain?", true)){
-      sparkL1.set(-left * driveSpeed);
-      sparkL2.set(-left * driveSpeed);
-      sparkL3.set(-left * driveSpeed);
-
-      sparkR2.set(right * driveSpeed);
-      sparkR1.set(right * driveSpeed);
-      sparkR3.set(right * driveSpeed);
-    }
+  /**
+   * Creates a new DriveSubsystem.
+   */
+  public DriveTrain() {
+    // Sets the distance per pulse for the encoders
+    m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+    m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
   }
-      
+
+   public void TankDrive(double x, double y){
+      m_drive.tankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
+      System.out.println(ControlChooser.leftJoy.getY());
+      System.out.println(ControlChooser.rightJoy.getX());
+
+            }
+  public void resetEncoders() {
+    m_leftEncoder.reset();
+    m_rightEncoder.reset();
+  }
+
+  /**
+   * Gets the average distance of the two encoders.
+   *
+   * @return the average of the two encoder readings
+   */
+  public double getAverageEncoderDistance() {
+    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+  }
+
+  /**
+   * Gets the left drive encoder.
+   *
+   * @return the left drive encoder
+   */
+  public Encoder getLeftEncoder() {
+    return m_leftEncoder;
+  }
+
+  /**
+   * Gets the right drive encoder.
+   *
+   * @return the right drive encoder
+   */
+  public Encoder getRightEncoder() {
+    return m_rightEncoder;
+  }
+
+  /**
+   * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
+   *
+   * @param maxOutput the maximum output to which the drive will be constrained
+   */
+  public void setMaxOutput(double maxOutput) {
+    m_drive.setMaxOutput(maxOutput);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+ 
   }
 }
