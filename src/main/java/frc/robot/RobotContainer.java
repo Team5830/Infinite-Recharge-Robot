@@ -31,8 +31,14 @@ public class RobotContainer {
   public static final DriveTrain m_driveTrain = new DriveTrain();
   public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
   private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
+<<<<<<< HEAD
+ public static final LIDAR m_LIDAR = new LIDAR();
+ public static final gyro m_gyro = new gyro();
+
+=======
   public static final LIDAR m_LIDAR = new LIDAR();
   public static final gyro m_gyro = new gyro();
+>>>>>>> 830216b79c58d5a917c53291fc96fce21512f61b
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
