@@ -35,7 +35,7 @@ public class LIDAR extends SubsystemBase {
     if(m_LIDAR.get() < 1)
       dist = 0;
     else
-      dist = (m_LIDAR.getPeriod()*1000000.0/10.0) - off; //convert to distance. sensor is high 10 us for every centimeter. 
+      dist = (m_LIDAR.getPeriod()*1000000.0/10.0)/2.54 - off; //convert to distance. sensor is high 10 us for every centimeter. 
     SmartDashboard.putNumber("Distance", dist); //put the distance on the dashboard
     // This method will be called once per scheduler run
   }
