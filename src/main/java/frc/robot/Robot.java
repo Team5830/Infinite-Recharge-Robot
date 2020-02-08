@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.Spark;
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot {
    
  
    SendableChooser<Number> speed = new SendableChooser<>();
- 
+ DigitalInput distancesensor;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -59,7 +60,7 @@ public class Robot extends TimedRobot {
     
     m_smartDashboardInterface.SmartDashboardInit();
     m_sensorReset.ResetSensors();
-
+    distancesensor = new DigitalInput(9);
     RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
     try {
       gyro.ahrs = new AHRS(SerialPort.Port.kUSB1);
