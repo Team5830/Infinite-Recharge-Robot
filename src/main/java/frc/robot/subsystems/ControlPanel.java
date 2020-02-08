@@ -11,6 +11,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Spark;
@@ -21,12 +22,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ControlPanel extends SubsystemBase {
 
   private I2C.Port i2cPort = I2C.Port.kOnboard;
-  private ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  
   public static final ColorMatch m_colorMatcher = new ColorMatch();
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  
   private Spark controlPanel = new Spark(6);
   private Encoder encoder = new Encoder(20, 1);
 
@@ -42,9 +44,15 @@ public class ControlPanel extends SubsystemBase {
   
   public String getColor(){
     String colorString;
-
-    Color detectedColor = m_colorSensor.getColor();
-
+    Color detectedColor;
+    try{
+      ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+      detectedColor = m_colorSensor.getColor();
+    } catch ( Exception ex ) {
+      DriverStation.reportError("Error instantiating Color sensor:  " + ex.getMessage(), true);
+      colorString = "Unknown";
+      return colorString;
+    }
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == kBlueTarget) {
@@ -58,7 +66,6 @@ public class ControlPanel extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
-
     return colorString;
   }
 
