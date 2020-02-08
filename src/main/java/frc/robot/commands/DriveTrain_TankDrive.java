@@ -7,10 +7,12 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.misc.ControlChooser;
 import frc.robot.subsystems.DriveTrain;
+//import frc.robot.Constants.DriveConstants;
 
 public class DriveTrain_TankDrive extends CommandBase {
 
@@ -21,6 +23,12 @@ public class DriveTrain_TankDrive extends CommandBase {
     addRequirements(RobotContainer.m_driveTrain);
   }
 
+
+  public void periodic() {
+    SmartDashboard.putNumber("Gyro Angle", RobotContainer.m_driveTrain.getHeading());
+    
+  }
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() { 

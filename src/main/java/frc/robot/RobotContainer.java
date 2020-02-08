@@ -8,16 +8,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.controlpanel.ControlPanelIndex;
 import frc.robot.commands.DriveTrain_TankDrive;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LIDAR;
 import frc.robot.subsystems.gyro;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -33,6 +35,7 @@ public class RobotContainer {
   private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
   public static final LIDAR m_LIDAR = new LIDAR();
   public static final gyro m_gyro = new gyro();
+  public static final Joystick m_joystick = new Joystick(0);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -51,6 +54,12 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(m_joystick, 3)
+        .whenPressed(new TurnToAngle(90.0, m_driveTrain).withTimeout(5));
+
+    // Turn to -90 degrees with a profile when the 'A' button is pressed, with a 5 second timeout
+    new JoystickButton(m_joystick, 4)
+        .whenPressed(new TurnToAngle(-90, m_driveTrain).withTimeout(5));
   }
 
 

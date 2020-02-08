@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.misc.ControlChooser;
+
+import com.kauailabs.navx.frc.AHRS;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -89,6 +90,64 @@ public class DriveTrain extends SubsystemBase {
    */
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
+  }
+   // The gyro sensor
+  //private final Gyro m_gyro = new ADXRS450_Gyro();
+  public static AHRS m_ahrs;
+  
+  //m_gyro.getAngle()
+  /**
+   * Zeroes the heading of the robot.
+   */
+  public void zeroGyro() {
+    m_ahrs.zeroYaw();
+  }
+
+  // Resets gyro 
+  public void resetGyro() {
+    m_ahrs.reset();
+  }
+
+  public void adjustAngleGyro(double adjustment ){
+    m_ahrs.setAngleAdjustment(adjustment);
+  }
+
+  /**
+   * Returns the heading of the robot.
+   *
+   * @return the robot's heading in degrees, from 180 to 180
+   */
+  public double getHeading() {
+    //double currentHeading = 0;
+    //if (m_ahrs.isMagnetometerCalibrated() ){
+    //  currentHeading = m_ahrs.getFusedHeading();
+    //}
+    double currentHeading = m_ahrs.getAngle();
+    
+    return Math.IEEEremainder(currentHeading, 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0) + (DriveConstants.kGyroReversed ? 180 : -180 );
+  }
+
+  /**
+   * Returns the turn rate of the robot.
+   *
+   * @return The turn rate of the robot, in degrees per second
+   */
+  public double getTurnRate() {
+    return m_ahrs.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+  /**
+   * Returns the turn rate of the robot.
+   *
+   * @return The turn rate of the robot, in degrees per second
+   */
+  public boolean isCalibrating() {
+    return m_ahrs.isCalibrating() ;
+  }
+
+  public void rotate(double spValue){ 
+    // Positive rotation is rotating to the right, 
+    // negative is rotating to the left
+    m_drive.tankDrive(spValue,-spValue);
   }
 
   @Override

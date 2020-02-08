@@ -19,8 +19,8 @@ public final class Constants {
     public static final class DriveConstants {
       public static final int kLeftMotor1Port = 0;
       public static final int kLeftMotor2Port = 1;
-      public static final int kRightMotor1Port = 13;
-      public static final int kRightMotor2Port = 14;
+      public static final int kRightMotor1Port = 2;
+      public static final int kRightMotor2Port = 3;
   
       public static final int[] kLeftEncoderPorts = new int[]{6,7};
       public static final int[] kRightEncoderPorts = new int[]{8,9};
@@ -45,8 +45,9 @@ public final class Constants {
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;
+      public static final double kMaxTurnPIDTurnSpeed = 0.2;
   
-      public static final double kTurnToleranceDeg = 5;
+      public static final double kTurnToleranceDeg = 2;
       public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
     }
   
