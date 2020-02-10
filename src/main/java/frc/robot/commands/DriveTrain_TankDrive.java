@@ -12,10 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.misc.ControlChooser;
 import frc.robot.subsystems.DriveTrain;
-//import frc.robot.Constants.DriveConstants;
 
 public class DriveTrain_TankDrive extends CommandBase {
-
   /**
    * Creates a new DriveTrain_TankDrive.
    */
@@ -23,15 +21,15 @@ public class DriveTrain_TankDrive extends CommandBase {
     addRequirements(RobotContainer.m_driveTrain);
   }
 
-
   public void periodic() {
-    SmartDashboard.putNumber("Gyro Angle", RobotContainer.m_driveTrain.getHeading());
     
   }
   
   // Called when the command is initially scheduled.
   @Override
   public void initialize() { 
+    RobotContainer.m_driveTrain.getNavx();
+    RobotContainer.m_driveTrain.getLIDAR();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

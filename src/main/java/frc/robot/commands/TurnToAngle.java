@@ -18,13 +18,15 @@ import frc.robot.Constants.DriveConstants;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
   
 public class TurnToAngle extends PIDCommand {
-  public TurnToAngle( double targetAngleDegrees, DriveTrain drive) {
+  // This will turn to a fixed angle determined by where the gyro was set to zero  
+  public TurnToAngle( double targetAngleDegrees, DriveTrain drive, boolean relativeAngle) {
     super( 
          new PIDController(DriveConstants.kTurnP, DriveConstants.kTurnI, DriveConstants.kTurnD),
           // Close loop on heading
           drive::getHeading,
-          // Set reference to target
-          drive.getHeading()+targetAngleDegrees,
+          // Set reference to target, make sure not bigger then +- 180
+          // If relative angle then add to current heading
+          Math.IEEEremainder(targetAngleDegrees+(relativeAngle ? drive.getHeading() : 0), 360),
           // Pipe output to turn robot
           output -> drive.rotate(MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, DriveConstants.kMaxTurnPIDTurnSpeed)),
           // Require the drive
@@ -44,3 +46,4 @@ public class TurnToAngle extends PIDCommand {
     return false;
   }
 }
+

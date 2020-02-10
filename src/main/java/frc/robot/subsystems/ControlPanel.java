@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PortAssignments;
 
 public class ControlPanel extends SubsystemBase {
 
@@ -29,8 +30,8 @@ public class ControlPanel extends SubsystemBase {
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
   
-  private Spark controlPanel = new Spark(6);
-  private Encoder encoder = new Encoder(20, 1);
+  private Spark controlPanel = new Spark(PortAssignments.ControlPanelMotorPort);
+  private Encoder encoder = new Encoder(PortAssignments.ControlPanelEncoderPort1, PortAssignments.ControlPanelEncoderPort2);
 
   public ControlPanel() {
     m_colorMatcher.addColorMatch(kBlueTarget);

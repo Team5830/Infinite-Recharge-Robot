@@ -7,35 +7,46 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.PortAssignments;
 import frc.robot.misc.ControlChooser;
-
+import edu.wpi.first.wpilibj.SerialPort;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.Counter;
 
 public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
-  private final SpeedControllerGroup m_rightMotors =
-  new SpeedControllerGroup(new Spark(DriveConstants.kRightMotor1Port), new Spark(DriveConstants.kRightMotor2Port));
-    //Motor Controllers (Left Side)
-    private final SpeedControllerGroup m_leftMotors =
-  new SpeedControllerGroup(new Spark(DriveConstants.kLeftMotor1Port), new Spark(DriveConstants.kLeftMotor2Port));
+  // Right Side Motor Controllers
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(
+    new Spark(PortAssignments.kRightMotorPort1), 
+    new Spark(PortAssignments.kRightMotorPort2));
+  // Left Side Motor Controllers
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(
+    new Spark(PortAssignments.kLeftMotorPort1), 
+    new Spark(PortAssignments.kLeftMotorPort2));
 
   private final DifferentialDrive m_drive = new DifferentialDrive (m_leftMotors, m_rightMotors);
 
-  private final Encoder m_rightEncoder = new Encoder(DriveConstants.kRightEncoderPorts[0], DriveConstants.kRightEncoderPorts[1], DriveConstants.kRightEncoderReversed);
+  // Right side drive encoder
+  private final Encoder m_rightEncoder = new Encoder(
+    PortAssignments.kRightEncoderPort1, 
+    PortAssignments.kRightEncoderPort2, 
+    DriveConstants.kRightEncoderReversed);
+  // Left side drive encoder
+  private final Encoder m_leftEncoder = new Encoder(
+    PortAssignments.kLeftEncoderPort1, 
+    PortAssignments.kLeftEncoderPort2,
+    DriveConstants.kLeftEncoderReversed);
   
-   // The left-side drive encoder
-   private final Encoder m_leftEncoder =
-   new Encoder(DriveConstants.kLeftEncoderPorts[0], DriveConstants.kLeftEncoderPorts[1],
-               DriveConstants.kLeftEncoderReversed);
-
   /**
    * Creates a new DriveSubsystem.
    */
@@ -45,12 +56,30 @@ public class DriveTrain extends SubsystemBase {
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
   }
 
-   public void TankDrive(double x, double y){
-      m_drive.tankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
-      System.out.println(ControlChooser.leftJoy.getY());
-      System.out.println(ControlChooser.rightJoy.getX());
 
-            }
+  // The gyro sensor
+  private static AHRS navx;
+  public static boolean navxConnected = false;
+
+  public void getNavx(){
+    try {
+      navx = new AHRS(SerialPort.Port.kUSB);
+    } catch (Exception ex) {
+      DriverStation.reportError("Error instantiating navX :  " + ex.getMessage(), true);
+    }
+    navxConnected = true;
+  }
+
+  public void TankDrive(double x, double y){
+    m_drive.tankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
+  }
+
+  public void rotate(double spValue){ 
+    // Positive rotation is rotating to the right, 
+    // negative is rotating to the left
+    m_drive.tankDrive(spValue,-spValue);
+  }
+
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
@@ -91,25 +120,21 @@ public class DriveTrain extends SubsystemBase {
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
   }
-   // The gyro sensor
-  //private final Gyro m_gyro = new ADXRS450_Gyro();
-  public static AHRS m_ahrs;
-  
-  //m_gyro.getAngle()
+
   /**
    * Zeroes the heading of the robot.
    */
   public void zeroGyro() {
-    m_ahrs.zeroYaw();
+    navx.zeroYaw();
   }
 
   // Resets gyro 
   public void resetGyro() {
-    m_ahrs.reset();
+    navx.reset();
   }
 
   public void adjustAngleGyro(double adjustment ){
-    m_ahrs.setAngleAdjustment(adjustment);
+    navx.setAngleAdjustment(adjustment);
   }
 
   /**
@@ -119,12 +144,12 @@ public class DriveTrain extends SubsystemBase {
    */
   public double getHeading() {
     //double currentHeading = 0;
-    //if (m_ahrs.isMagnetometerCalibrated() ){
-    //  currentHeading = m_ahrs.getFusedHeading();
+    //if (navx.isMagnetometerCalibrated() ){
+    //  currentHeading = navx.getFusedHeading();
     //}
-    double currentHeading = m_ahrs.getAngle();
-    
-    return Math.IEEEremainder(currentHeading, 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0) + (DriveConstants.kGyroReversed ? 180 : -180 );
+    double currentHeading = navx.getAngle();
+    // currentHeading is continuous, limit to -180 to 180 
+    return Math.IEEEremainder(currentHeading, 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
   /**
@@ -133,7 +158,7 @@ public class DriveTrain extends SubsystemBase {
    * @return The turn rate of the robot, in degrees per second
    */
   public double getTurnRate() {
-    return m_ahrs.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    return navx.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
   /**
    * Returns the turn rate of the robot.
@@ -141,18 +166,37 @@ public class DriveTrain extends SubsystemBase {
    * @return The turn rate of the robot, in degrees per second
    */
   public boolean isCalibrating() {
-    return m_ahrs.isCalibrating() ;
+    return navx.isCalibrating() ;
   }
 
-  public void rotate(double spValue){ 
-    // Positive rotation is rotating to the right, 
-    // negative is rotating to the left
-    m_drive.tankDrive(spValue,-spValue);
+  private Counter m_LIDAR;
+  public boolean lidarConnected = false;
+  public void getLIDAR() {
+    try {
+      m_LIDAR = new Counter(PortAssignments.LIDARPort); //LIDAR  PWM Port
+      m_LIDAR.setMaxPeriod(1.00); //set the max period that can be measured
+      m_LIDAR.setSemiPeriodMode(true); //Set the counter to period measurement
+      m_LIDAR.reset();
+    }catch (Exception ex) {
+      DriverStation.reportError("Error instantiating LIDAR :  " + ex.getMessage(), true);
+    }
+    lidarConnected = true;
+  }
+
+  public double getDistance(){
+    double dist = -1; // Distance should always be positive this is a default value 
+    dist = (m_LIDAR.getPeriod()*1000000.0/10.0); //convert to distance. sensor is high 10 us for every centimeter. 
+    return dist;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
- 
+    if (navxConnected) {
+      SmartDashboard.putNumber("Gyro Heading", getHeading()); //put the distance on the dashboard
+    }
+    if (lidarConnected){
+      SmartDashboard.putNumber("LIDAR Distance", getDistance()); //put the distance on the dashboard
+    }
   }
 }

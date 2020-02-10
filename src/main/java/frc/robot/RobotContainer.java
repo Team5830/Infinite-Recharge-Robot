@@ -16,8 +16,6 @@ import frc.robot.commands.DriveTrain_TankDrive;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.LIDAR;
-import frc.robot.subsystems.gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -33,8 +31,6 @@ public class RobotContainer {
   public static final DriveTrain m_driveTrain = new DriveTrain();
   public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
   private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
-  public static final LIDAR m_LIDAR = new LIDAR();
-  public static final gyro m_gyro = new gyro();
   public static final Joystick m_joystick = new Joystick(0);
 
   /**
@@ -55,11 +51,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_joystick, 3)
-        .whenPressed(new TurnToAngle(90.0, m_driveTrain).withTimeout(5));
+        .whenPressed(new TurnToAngle(90.0, m_driveTrain,true).withTimeout(5));
 
     // Turn to -90 degrees with a profile when the 'A' button is pressed, with a 5 second timeout
     new JoystickButton(m_joystick, 4)
-        .whenPressed(new TurnToAngle(-90, m_driveTrain).withTimeout(5));
+        .whenPressed(new TurnToAngle(-90, m_driveTrain,true).withTimeout(5));
   }
 
 
