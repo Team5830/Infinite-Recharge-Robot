@@ -6,10 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -31,12 +28,7 @@ public class Robot extends TimedRobot {
   private SmartDashboardInterface m_smartDashboardInterface;
   private SensorReset m_sensorReset;
 
-   //Joysticks
-   
- 
-   SendableChooser<Number> speed = new SendableChooser<>();
- DigitalInput distancesensor;
-
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -52,7 +44,6 @@ public class Robot extends TimedRobot {
     
     m_smartDashboardInterface.SmartDashboardInit();
     m_sensorReset.ResetSensors();
-    distancesensor = new DigitalInput(9);
     RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
     RobotContainer.m_driveTrain.getNavx();
     
