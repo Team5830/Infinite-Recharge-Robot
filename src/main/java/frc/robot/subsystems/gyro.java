@@ -23,7 +23,7 @@ public class gyro extends SubsystemBase {
     //Divides the gyro angle by 360. If remainder is less than 0, add 360, otherwise leave it alone. Return that value.
     public double getGyroClampedTo360() {
         
-        gyroAngleClamped = 0;//Math.IEEEremainder(RobotMap.gyro.getAngle(), 360);
+       gyroAngleClamped = 0;//Math.IEEEremainder(RobotMap.gyro.getAngle(), 360);
         
         if(gyroAngleClamped < 0) {
             gyroAngleClampedShifted = Math.abs(gyroAngleClamped + 360);
