@@ -9,8 +9,13 @@ package frc.robot.commands.align;
 
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpiutil.math.MathUtil;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.gyro;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,16 +24,16 @@ import frc.robot.Constants.DriveConstants;
 //RobotContainer.m_driveTrain.TankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY())
 public class TurnToAngle extends PIDCommand {
   // This will turn to a fixed angle determined by where the gyro was set to zero  
-  public TurnToAngle( double targetAngleDegrees, DriveTrain drive, boolean relativeAngle) {
+  public TurnToAngle( double targetAngleDegrees, DriveTrain drive, gyro sampleGyro, boolean relativeAngle) {
     super( 
          new PIDController(DriveConstants.kTurnP, DriveConstants.kTurnI, DriveConstants.kTurnD),
           // Close loop on heading
-          drive::getHeading,
+          sampleGyro::getHeading,
           // Set reference to target, make sure not bigger then +- 180
           // If relative angle then add to current heading
-          Math.IEEEremainder(targetAngleDegrees+(relativeAngle ? drive.getHeading() : 0), 360),
+          Math.IEEEremainder(targetAngleDegrees+(relativeAngle ? sampleGyro.getHeading() : 0), 360),
           // Pipe output to turn robot
-          output -> drive( MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
+          output -> drive.TankDrive( MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
           DriveConstants.kMaxTurnPIDTurnSpeed),-MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
           DriveConstants.kMaxTurnPIDTurnSpeed)),
           // Require the drive

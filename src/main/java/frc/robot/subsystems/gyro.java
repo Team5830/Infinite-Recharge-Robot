@@ -32,6 +32,10 @@ public class gyro extends SubsystemBase {
         }
         return gyroAngleClampedShifted;
     }
+
+    public void reset(){
+        ahrs.reset();
+    }
     public void periodic() {
       SmartDashboard.putNumber("Gyro Angle", ahrs.getAngle());
       

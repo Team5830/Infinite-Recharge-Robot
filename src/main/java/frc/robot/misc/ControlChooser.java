@@ -20,8 +20,8 @@ public final class ControlChooser {
     public static Joystick leftJoy = new Joystick(0);
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
-    Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(20,RobotContainer.m_driveTrain,true ).withTimeout(5));
-    Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-20,RobotContainer.m_driveTrain,true ).withTimeout(5));
+    Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
 
     
 

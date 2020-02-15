@@ -26,10 +26,10 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public static final ControlPanel m_controlPanel = new ControlPanel();
+ // public static final ControlPanel m_controlPanel = new ControlPanel();
   public static final DriveTrain m_driveTrain = new DriveTrain();
   public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
-  private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
+  //private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
   public static final LIDAR m_LIDAR = new LIDAR();
   public static final gyro m_gyro = new gyro();
 
@@ -40,7 +40,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
+   // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 
   /**

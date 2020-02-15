@@ -5,6 +5,7 @@
 package frc.robot.misc;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotContainer;
 
 public class SensorReset {
     
@@ -12,7 +13,7 @@ public class SensorReset {
 
         //Place sensor reset code here. Some examples:
         //RobotContainer.ahrs.enableBoardlevelYawReset(true);
-        //RobotContainer.ahrs.reset();
+        RobotContainer.m_gyro.reset();
         //RobotContainer.armEncoder.reset();
         //RobotContainer.manipulatorEncoder.reset();
 
