@@ -15,8 +15,8 @@ public class gyro extends SubsystemBase {
     
     //Converts the absolute gyro value to one between -180 and 180
     //Divides the gyro angle by 360 and uses the remainder as the return value
-    public double getGyroClampedNeg180To180() {
-        return 0;//Math.IEEEremainder(RobotMap.gyro.getAngle(), 360);
+    public double getHeading() {
+        return Math.IEEEremainder(ahrs.getAngle(), 360);
     }
     
     //Converts the absolute gyro value to one between 0 and 360

@@ -6,7 +6,9 @@ package frc.robot.misc;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton; 
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.RobotContainer;
+import frc.robot.commands.align.TurnToAngle;
 
 public final class ControlChooser {
 
@@ -18,7 +20,10 @@ public final class ControlChooser {
     public static Joystick leftJoy = new Joystick(0);
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
-    Button exampleButton;
+    Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(20,RobotContainer.m_driveTrain,true ).withTimeout(5));
+    Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-20,RobotContainer.m_driveTrain,true ).withTimeout(5));
+
+    
 
     //These serve as temporary fillers to show how the Chooser methods work.
     //DELETE THESE!
@@ -29,18 +34,18 @@ public final class ControlChooser {
         switch (controlMethod) {
         case 0: // Example name: General Flightsticks with DIDBoard
             // Define Joysticks First!
-            exampleJoystick = new Joystick(0);
+            //exampleJoystick = new Joystick(0);
 
             // Define Buttons Next
-            exampleButton = new JoystickButton(exampleJoystick, 1);
+            //exampleButton = new JoystickButton(exampleJoystick, 1);
             break;
 
         case 1:// Example name: Arlene
                // Define Joysticks First!
-            exampleJoystick = new Joystick(1);
+            //exampleJoystick = new Joystick(1);
 
             // Define Buttons Next
-            exampleButton = new JoystickButton(exampleJoystick, 4);
+           // exampleButton = new JoystickButton(exampleJoystick, 4);
             break;
         }
     }
