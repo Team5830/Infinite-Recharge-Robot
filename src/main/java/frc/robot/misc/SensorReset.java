@@ -5,6 +5,7 @@
 package frc.robot.misc;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotContainer;
 
 public class SensorReset {
     
@@ -15,7 +16,8 @@ public class SensorReset {
         //RobotContainer.ahrs.reset();
         //RobotContainer.armEncoder.reset();
         //RobotContainer.manipulatorEncoder.reset();
-
+        //RobotContainer.m_driveTrain.resetGyro(); //enableBoardlevelYawReset(true) ?
+        RobotContainer.m_driveTrain.getLIDAR();
         System.out.println("Sensors Reset");
         SmartDashboard.putBoolean("Reset Sensors", false);
     }

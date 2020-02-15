@@ -7,11 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.controlpanel.ControlPanelIndex;
+import frc.robot.misc.ControlChooser;
+import frc.robot.commands.DriveTrain_TankDrive;
+import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -21,30 +24,28 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-
-
+  public static final ControlPanel m_controlPanel = new ControlPanel();
+  public static final DriveTrain m_driveTrain = new DriveTrain();
+  public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
+  private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
+  public static int controlMethod = 0; //If we add other control methods then add sendable options
+  public static ControlChooser m_driver_controls;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
+  
+    m_driver_controls = new ControlChooser();
+    m_driver_controls.ControlInit(controlMethod);
+    SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
+    m_driveTrain.setDefaultCommand( 
+      new RunCommand(() -> m_driveTrain
+      .move(m_driver_controls.leftJoy.getY(),
+      m_driver_controls.rightJoy.getY()),m_driveTrain));
+   
   }
-
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-  }
-
-
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -52,6 +53,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }

@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,6 +28,7 @@ public class Robot extends TimedRobot {
   private SmartDashboardInterface m_smartDashboardInterface;
   private SensorReset m_sensorReset;
 
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -44,6 +44,9 @@ public class Robot extends TimedRobot {
     
     m_smartDashboardInterface.SmartDashboardInit();
     m_sensorReset.ResetSensors();
+    RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
+    RobotContainer.m_driveTrain.getNavx();
+    
   }
 
   /**
@@ -64,6 +67,8 @@ public class Robot extends TimedRobot {
 
     //Resets sensors when driver presses Shuffleboard button
     if(SmartDashboard.getBoolean("Reset Sensors", false)) m_sensorReset.ResetSensors();
+
+    
   }
 
   /**
@@ -116,7 +121,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //CommandScheduler.getInstance().run();
     m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
+ 
+    
+    //The robot may drive backwards or spin around due to different drivetrain configurations.
+    //Play with these SmartDashboard parameters so it drives correctly.
+     
+ 
   }
 
   @Override
