@@ -14,6 +14,7 @@ import frc.robot.commands.DriveTrain_TankDrive;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,18 +28,23 @@ public class RobotContainer {
   public static final DriveTrain m_driveTrain = new DriveTrain();
   public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
   private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
-  public static int controlMethod = 1; //If we add other control methods then add sendable options
+  public static int controlMethod = 0; //If we add other control methods then add sendable options
   public static ControlChooser m_driver_controls;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
+  
     m_driver_controls = new ControlChooser();
     m_driver_controls.ControlInit(controlMethod);
     SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
+    m_driveTrain.setDefaultCommand( 
+      new RunCommand(() -> m_driveTrain
+      .move(m_driver_controls.leftJoy.getY(),
+      m_driver_controls.rightJoy.getY()),m_driveTrain));
+   
   }
-
   
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -22,14 +22,14 @@ public final class Constants {
       public static final int kLeftMotorPort2  = 1;
       public static final int kRightMotorPort1 = 2;
       public static final int kRightMotorPort2 = 3;
-      public static final int LIDARPort = 4;
+      public static final int PWM4 = 4;
       public static final int PWM5 = 5;
       public static final int PWM6 = 6;
       public static final int PWM7 = 7;
       public static final int PWM8 = 8;
       public static final int ControlPanelMotorPort = 9;
       // DIO Ports
-      public static final int DIO0 = 0;
+      public static final int LIDARPort = 0;
       public static final int DIO1 = 1;
       public static final int DIO2 = 2;
       public static final int DIO3 = 3;

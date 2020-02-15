@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.PortAssignments;
-import frc.robot.misc.ControlChooser;
+//import frc.robot.misc.ControlChooser;
 import edu.wpi.first.wpilibj.SerialPort;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Counter;
@@ -37,11 +37,14 @@ public class DriveTrain extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive (m_leftMotors, m_rightMotors);
 
   // Right side drive encoder
+  
   private final Encoder m_rightEncoder = new Encoder(
     PortAssignments.kRightEncoderPort1, 
     PortAssignments.kRightEncoderPort2, 
     DriveConstants.kRightEncoderReversed);
+
   // Left side drive encoder
+  
   private final Encoder m_leftEncoder = new Encoder(
     PortAssignments.kLeftEncoderPort1, 
     PortAssignments.kLeftEncoderPort2,
@@ -50,12 +53,14 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
    */
+  // Sets the distance per pulse for the encoders
+  
   public DriveTrain() {
-    // Sets the distance per pulse for the encoders
-    m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+    
+    //m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+   // m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
   }
-
+  
 
   // The gyro sensor
   private static AHRS navx;
@@ -63,20 +68,20 @@ public class DriveTrain extends SubsystemBase {
 
   public void getNavx(){
     try {
-      navx = new AHRS(SerialPort.Port.kUSB);
+      navx = new AHRS(SerialPort.Port.kUSB1);
     } catch (Exception ex) {
       DriverStation.reportError("Error instantiating navX :  " + ex.getMessage(), true);
     }
     navxConnected = true;
   }
-
-  public void TankDrive(double x, double y){
-    m_drive.tankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
+ 
+  public void move(double left, double right){
+    m_drive.tankDrive(left, right);
   }
 
   public void rotate(double spValue){ 
-    // Positive rotation is rotating to the right, 
-    // negative is rotating to the left
+    // Positive rotation is rotating to the left, 
+    // negative is rotating to the right
     m_drive.tankDrive(spValue,-spValue);
   }
 
@@ -185,7 +190,9 @@ public class DriveTrain extends SubsystemBase {
 
   public double getDistance(){
     double dist = -1; // Distance should always be positive this is a default value 
-    dist = (m_LIDAR.getPeriod()*1000000.0/10.0); //convert to distance. sensor is high 10 us for every centimeter. 
+    if (lidarConnected){
+      dist = (m_LIDAR.getPeriod()*1000000.0/10.0); //convert to distance. sensor is high 10 us for every centimeter. 
+    }
     return dist;
   }
 

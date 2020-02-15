@@ -10,7 +10,7 @@ package frc.robot.commands;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.misc.ControlChooser;
+//import frc.robot.misc.ControlChooser;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveTrain_TankDrive extends CommandBase {
@@ -19,6 +19,16 @@ public class DriveTrain_TankDrive extends CommandBase {
    */
   public DriveTrain_TankDrive(DriveTrain subsystem) {
     addRequirements(RobotContainer.m_driveTrain);
+  }
+
+  public void drive(double left, double right){
+    RobotContainer.m_driveTrain.move(left,right);
+  }
+
+  public void rotate(double spValue){ 
+    // Positive rotation is rotating to the left, 
+    // negative is rotating to the right
+    RobotContainer.m_driveTrain.rotate(spValue);
   }
 
   public void periodic() {
@@ -35,7 +45,7 @@ public class DriveTrain_TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_driveTrain.TankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
+    //RobotContainer.m_driveTrain.TankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY());
   }
 
   // Called once the command ends or is interrupted.
