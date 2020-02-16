@@ -14,17 +14,11 @@ public final class ControlChooser {
 
     int safetyChecker;
 
-    //Define Joystick Names
-    //Joystick exampleJoystick;
-
     public static Joystick leftJoy = new Joystick(0);
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
     Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
     Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-
-    
-
     
     public void ControlInit(final int controlMethod) {
         switch (controlMethod) {

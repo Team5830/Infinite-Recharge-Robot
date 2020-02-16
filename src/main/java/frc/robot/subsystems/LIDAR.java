@@ -9,34 +9,38 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class LIDAR extends SubsystemBase {
   /**
    * Creates a new LIDAR.
    */
-
-   //LIDAR port 
-
-  public Counter m_LIDAR;
-
-  public LIDAR() {
-
-    m_LIDAR = new Counter(0); //plug the lidar into PWM 0
-    m_LIDAR.setMaxPeriod(1.00); //set the max period that can be measured
-    m_LIDAR.setSemiPeriodMode(true); //Set the counter to period measurement
-    m_LIDAR.reset();
-
+  public static Counter m_LIDAR;
+  public void init() {
+      try {
+        m_LIDAR = new Counter(0); //plug the lidar into PWM 0
+        m_LIDAR.setMaxPeriod(1.00); //set the max period that can be measured
+        m_LIDAR.setSemiPeriodMode(true); //Set the counter to period measurement
+        m_LIDAR.reset();
+      } catch (RuntimeException ex ) {
+          DriverStation.reportError("Error initializing LIDAR:  " + ex.getMessage(), true);
+      }
   }
+
+  public double getDistance() {
+    // Return distance  from LIDAR in inches
+    double dist=100000;
+    try {
+      dist = (m_LIDAR.getPeriod()*1000000.0/10.0)/2.54; //Sensor is high 10 us for every centimeter. 
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error reading LIDAR:  " + ex.getMessage(), true);
+    }
+    return dist;
+  }
+
   final double off  = 0; //offset for sensor. test with tape measure
   @Override
   public void periodic() {
-
-    double dist;
-    if(m_LIDAR.get() < 1)
-      dist = 0;
-    else
-      dist = (m_LIDAR.getPeriod()*1000000.0/10.0)/2.54 - off; //convert to distance. sensor is high 10 us for every centimeter. 
-    SmartDashboard.putNumber("Distance", dist); //put the distance on the dashboard
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Distance", getDistance()); //put the distance on the dashboard
   }
 }
