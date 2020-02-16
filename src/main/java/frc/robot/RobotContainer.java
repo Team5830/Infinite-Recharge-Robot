@@ -39,7 +39,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
+    m_gyro.initDefaultCommand();
    // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 

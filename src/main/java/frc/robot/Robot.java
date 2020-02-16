@@ -19,11 +19,6 @@ import frc.robot.misc.SensorReset;
 import frc.robot.misc.SmartDashboardInterface;
 import frc.robot.subsystems.gyro;
 
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort;
-
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -61,14 +56,7 @@ public class Robot extends TimedRobot {
     m_sensorReset.ResetSensors();
 
     RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
-    try {
-      gyro.ahrs = new AHRS(SerialPort.Port.kUSB1);
-      //ahrs = new AHRS(SerialPort.Port.kMXP, SerialDataType.kProcessedData, (byte)50);
-      gyro.ahrs.enableLogging(true);
-  } catch (RuntimeException ex ) {
-      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-  }
-
+    
   }
 
   /**

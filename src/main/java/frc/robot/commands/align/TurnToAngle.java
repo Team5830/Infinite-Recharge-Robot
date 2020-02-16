@@ -33,8 +33,8 @@ public class TurnToAngle extends PIDCommand {
           // If relative angle then add to current heading
           Math.IEEEremainder(targetAngleDegrees+(relativeAngle ? sampleGyro.getHeading() : 0), 360),
           // Pipe output to turn robot
-          output -> drive.TankDrive( MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
-          DriveConstants.kMaxTurnPIDTurnSpeed),-MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
+          output -> drive.TankDrive( -MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
+          DriveConstants.kMaxTurnPIDTurnSpeed),MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
           DriveConstants.kMaxTurnPIDTurnSpeed)),
           // Require the drive
           drive);
