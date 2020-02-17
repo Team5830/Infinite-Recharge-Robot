@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,7 +16,7 @@ public class intake extends SubsystemBase {
   /**
    * Creates a new intake.
    */
-  public static Victor intake = new Victor(3);{
+  public static Victor intake = new Victor(7);{
     
   }
   public intake() {

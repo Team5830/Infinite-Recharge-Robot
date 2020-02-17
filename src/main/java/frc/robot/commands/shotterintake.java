@@ -9,8 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.shooter;
-
 public class shotterintake extends CommandBase {
   /**
    * Creates a new shotterdelivery.
@@ -18,29 +16,41 @@ public class shotterintake extends CommandBase {
   public shotterintake() {
     addRequirements(RobotContainer.m_intake);
     }
-    // Use addRequirements() here to declare subsystem dependencies.
-  
 
+  boolean motoron = false;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!shooter.isshooteron){
-      RobotContainer.m_intake.intakeon();
-
-    } else {
-      RobotContainer.m_intake.intakeoff();
-    };
-
+    
+  }
+  
+  public void teleopPeriodic(){
+      if(motoron){
+        RobotContainer.m_intake.intakeon();
+      }else{
+        RobotContainer.m_intake.intakeoff();
+      }
+  }
+       
+  public void updateToggle()
+  {    
+    if(motoron){
+      motoron = false;
+    }else{
+      motoron = true;
+    }  
   }
     
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() { 
+     updateToggle();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
   }
 
   // Returns true when the command should end.

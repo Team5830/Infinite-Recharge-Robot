@@ -9,7 +9,7 @@ import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 import com.revrobotics.SparkMax;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
@@ -28,11 +28,11 @@ public final class ControlChooser {
     public static Joystick leftJoy = new Joystick(0);
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
-    Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button rightjoy1 = new JoystickButton(rightJoy,3).whenPressed(new shotterdelivery());
-    Button rightjoy2 = new JoystickButton(rightJoy,1).whileHeld(new shotterfeeder()); 
-    Button leftjoy1 = new JoystickButton(leftJoy,1).whileHeld(new shotterintake());
+   // Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+   // Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button rightjoy1 = new JoystickButton(leftJoy,5).whenPressed(new shotterdelivery());
+    Button rightjoy2 = new JoystickButton(leftJoy,3).whenHeld(new shotterfeeder()); 
+    Button leftjoy1 = new JoystickButton(leftJoy,4).whenPressed(new shotterintake());
     //These serve as temporary fillers to show how the Chooser methods work.
     //DELETE THESE!
     double exampleRobotDriveX;
@@ -64,13 +64,13 @@ public final class ControlChooser {
 
         switch (controlMethod) {
         case 0: // Example name: General Flightsticks with DIDBoard
-            exampleRobotDriveX = exampleJoystick.getX();
-            exampleRobotDriveY = exampleJoystick.getY();
+          //  exampleRobotDriveX = exampleJoystick.getX();
+           // exampleRobotDriveY = exampleJoystick.getY();
             break;
 
         case 1:// Example name: Arlene
-            exampleRobotDriveX = exampleJoystick.getZ();
-            exampleRobotDriveY = exampleJoystick.getX();
+           // exampleRobotDriveX = exampleJoystick.getZ();
+           // exampleRobotDriveY = exampleJoystick.getX();
             break;
         }
     }

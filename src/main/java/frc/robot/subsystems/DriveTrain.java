@@ -23,8 +23,8 @@ public class DriveTrain extends SubsystemBase {
  
    //Motor Controllers (Right Side)
    Spark sparkR1 = new Spark(3);
-   Spark sparkR2 = new Spark(4);
-   Spark sparkR3 = new Spark(5);
+   //Spark sparkR2 = new Spark(4);
+   //Spark sparkR3 = new Spark(5);
 
   public void TankDrive(double left, double right) {
     double driveSpeed = SmartDashboard.getNumber("Speed Percentage", 100)/100;
@@ -34,9 +34,9 @@ public class DriveTrain extends SubsystemBase {
       sparkL2.set(-left * driveSpeed);
       sparkL3.set(-left * driveSpeed);
 
-      sparkR2.set(right * driveSpeed);
+   //   sparkR2.set(right * driveSpeed);
       sparkR1.set(right * driveSpeed);
-      sparkR3.set(right * driveSpeed);
+      //sparkR3.set(right * driveSpeed);
     }
   }
       

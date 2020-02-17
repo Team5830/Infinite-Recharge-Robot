@@ -33,9 +33,9 @@ public class RobotContainer {
   public static final DriveTrain m_driveTrain = new DriveTrain();
   public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
   //private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
-  public static final LIDAR m_LIDAR = new LIDAR();
-  public static final gyro m_gyro = new gyro();
-  public static final shooter m_shooter = new shooter();
+  //public static final LIDAR m_LIDAR = new LIDAR();
+  //public static final gyro m_gyro = new gyro();
+  //public static final shooter m_shooter = new shooter();
   public static final feeder m_feeder = new feeder();
   public static final intake m_intake = new intake();
   /**
@@ -44,6 +44,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    m_intake.intakeoff();
 
    // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }

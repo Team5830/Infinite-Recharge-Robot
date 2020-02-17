@@ -7,6 +7,10 @@
 
 package frc.robot.subsystems;
 
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,26 +19,31 @@ public class feeder extends SubsystemBase {
   /**
    * Creates a new feeder.
    */
-  public static Victor feeder = new Victor(3);{
-    
-  }
+  public static Victor feeder = new Victor(4);
+  DigitalInput ballsensor = new DigitalInput(8);
   public feeder() {
 
   }
   public static boolean isfeederon = false;
+  
+  public void feedoneball(){
+    ballsensor.requestInterrupts();
+    ballsensor.setUpSourceEdge(false, true);
+    feederon();
+    ballsensor.waitForInterrupt(10);
+    // Wait until ball passes -> ballsensor
+    feederoff();
+  }
   public void feederon(){
     
     feeder.set(0.75);
- 
-    SmartDashboard.putBoolean("feederon", true);
     isfeederon = true;
-  }
+    SmartDashboard.putBoolean("feederon", isfeederon);
+   }
   public void feederoff(){
-    
    feeder.set(0);
- 
-   SmartDashboard.putBoolean("feederon", false);
    isfeederon = false;
+   SmartDashboard.putBoolean("feederon", isfeederon);
   }
   @Override
   public void periodic() {
