@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Ports;
 
@@ -38,7 +37,8 @@ public class DriveTrain extends SubsystemBase {
     //double driveSpeed = SmartDashboard.getNumber("Speed Percentage", 100)/100;
     //if(SmartDashboard.getBoolean("Reverse Left Drivetrain?", true)){
     //}
-    m_drive.tankDrive(-left, right);
+    //DriverStation.reportWarning(m_drive.getDescription(), false);
+    m_drive.tankDrive(left, right, true);// Passing in true adjusts sensitivity at low speeds 
   }    
   @Override
   public void periodic() {
