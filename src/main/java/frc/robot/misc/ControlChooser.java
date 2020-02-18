@@ -4,12 +4,19 @@
 
 package frc.robot.misc;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+
+import com.revrobotics.SparkMax;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
 import frc.robot.commands.align.TurnToAngle;
-
+import frc.robot.commands.shooter.shooter;
+import frc.robot.commands.shooter.feeder;
+import frc.robot.commands.shooter.intake;
 public final class ControlChooser {
 
     int safetyChecker;
@@ -17,9 +24,13 @@ public final class ControlChooser {
     public static Joystick leftJoy = new Joystick(0);
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
-    Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    
+
+    //Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    //Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button rightjoy1 = new JoystickButton(leftJoy,5).whenPressed(new shooter());
+    Button rightjoy2 = new JoystickButton(leftJoy,3).whenHeld(new feeder()); 
+    Button leftjoy1 = new JoystickButton(leftJoy,4).whenPressed(new intake());
+  
     public void ControlInit(final int controlMethod) {
         switch (controlMethod) {
         case 0: // Example name: General Flightsticks with DIDBoard

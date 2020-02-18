@@ -15,7 +15,10 @@ import frc.robot.commands.DriveTrain_TankDrive;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LIDAR;
+import frc.robot.subsystems.shooter.feeder;
 import frc.robot.subsystems.gyro;
+import frc.robot.subsystems.shooter.intake;
+import frc.robot.subsystems.shooter.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -32,7 +35,10 @@ public class RobotContainer {
   //private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
   public static final LIDAR m_LIDAR = new LIDAR();
   public static final gyro m_gyro = new gyro();
-
+  public static final shooter m_shooter = new shooter();
+  public static final feeder m_feeder = new feeder();
+  public static final intake m_intake = new intake();
+  //public static final shooter m_shooter = new shooter();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -41,6 +47,7 @@ public class RobotContainer {
     configureButtonBindings();
     m_gyro.init();
     m_LIDAR.init();
+    m_intake.intakeoff();
    // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 
