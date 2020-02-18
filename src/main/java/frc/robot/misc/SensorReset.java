@@ -14,6 +14,7 @@ public class SensorReset {
         //Place sensor reset code here. Some examples:
         //RobotContainer.ahrs.enableBoardlevelYawReset(true);
         RobotContainer.m_gyro.reset();
+        RobotContainer.m_LIDAR.reset();
         //RobotContainer.armEncoder.reset();
         //RobotContainer.manipulatorEncoder.reset();
 

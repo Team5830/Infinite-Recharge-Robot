@@ -8,38 +8,38 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Ports;
 
 public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
+  // Right Side Motor Controllers
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(
+    new Spark(Ports.kLeftMotor1),
+    new Spark(Ports.kLeftMotor2),
+    new Spark(Ports.kLeftMotor3)
+    );
 
-   //Motor Controllers (Left Side)
-   Spark sparkL1 = new Spark(0);
-   Spark sparkL2 = new Spark(1);
-   Spark sparkL3 = new Spark(2);
- 
-   //Motor Controllers (Right Side)
-   Spark sparkR1 = new Spark(3);
-   Spark sparkR2 = new Spark(4);
-   Spark sparkR3 = new Spark(5);
+  // Left Side Motor Controllers
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(
+    new Spark(Ports.kLeftMotor1), 
+    new Spark(Ports.kLeftMotor2),
+    new Spark(Ports.kLeftMotor3)
+    );
 
+  private final DifferentialDrive m_drive = new DifferentialDrive (m_leftMotors, m_rightMotors);
+   
   public void TankDrive(double left, double right) {
-    double driveSpeed = SmartDashboard.getNumber("Speed Percentage", 100)/100;
-
-    if(SmartDashboard.getBoolean("Reverse Left Drivetrain?", true)){
-      sparkL1.set(-left * driveSpeed);
-      sparkL2.set(-left * driveSpeed);
-      sparkL3.set(-left * driveSpeed);
-
-      sparkR2.set(right * driveSpeed);
-      sparkR1.set(right * driveSpeed);
-      sparkR3.set(right * driveSpeed);
-    }
-  }
-      
+    //double driveSpeed = SmartDashboard.getNumber("Speed Percentage", 100)/100;
+    //if(SmartDashboard.getBoolean("Reverse Left Drivetrain?", true)){
+    //}
+    m_drive.tankDrive(-left, right);
+  }    
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

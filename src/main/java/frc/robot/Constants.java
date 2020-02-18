@@ -16,30 +16,29 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final class PortAssignments {
+    public static final class Ports {
       // PWM Ports
-      public static final int kLeftMotorPort1  = 0;
-      public static final int kLeftMotorPort2  = 1;
-      public static final int kRightMotorPort1 = 2;
-      public static final int kRightMotorPort2 = 3;
-      public static final int PWM4 = 4;
-      public static final int PWM5 = 5;
+      public static final int kLeftMotor1  = 0;
+      public static final int kLeftMotor2  = 1;
+      public static final int kLeftMotor3  = 2;
+      public static final int kRightMotor1 = 3;
+      public static final int kRightMotor2 = 4;
+      public static final int kRightMotor3 = 5;
       public static final int PWM6 = 6;
       public static final int PWM7 = 7;
       public static final int PWM8 = 8;
-      public static final int ControlPanelMotorPort = 9;
+      public static final int ControlPanelMotor = 9;
       // DIO Ports
-      public static final int LIDARPort = 0;
+      public static final int LIDAR = 0;
       public static final int DIO1 = 1;
       public static final int DIO2 = 2;
       public static final int DIO3 = 3;
-      public static final int ControlPanelEncoderPort1 = 4;
-      public static final int ControlPanelEncoderPort2 = 5; // Do we need two ports for the encoder? 
-      public static final int kLeftEncoderPort1  = 6;
-      public static final int kLeftEncoderPort2  = 7;
-      public static final int kRightEncoderPort1 = 8;
-      public static final int kRightEncoderPort2 = 9;
-
+      public static final int ControlPanelEncoder1 = 4;
+      public static final int ControlPanelEncoder2 = 5;  
+      public static final int kLeftEncoder1  = 6;
+      public static final int kLeftEncoder2  = 7;
+      public static final int kRightEncoder1 = 8;
+      public static final int kRightEncoder2 = 9;
     }
 
     public static final class DriveConstants {
@@ -60,13 +59,13 @@ public final class Constants {
   
       public static final double kTurnP = 1;
       public static final double kTurnI = 0;
-      public static final double kTurnD = 0;
+      public static final double kTurnD = 2;
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;
       public static final double kMaxTurnPIDTurnSpeed = 0.2;
   
-      public static final double kTurnToleranceDeg = 2;
+      public static final double kTurnToleranceDeg = 0.5;
       public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
     }
     public static final class ShooterConstants {
