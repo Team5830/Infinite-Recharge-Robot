@@ -1,5 +1,7 @@
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.shooter;
+
+import java.sql.Driver;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANError;
@@ -138,23 +140,44 @@ protected void execute() {
     double setPoint, processVariable;
     boolean mode = SmartDashboard.getBoolean("Mode", false);
     if(mode) {
-      setPoint = SmartDashboard.getNumber("Set Velocity", 0);
-      m_pidController.setReference(setPoint, ControlType.kVelocity);
-      processVariable = m_encoder.getVelocity();
+      setPoint = 0;
+      try { 
+        setPoint = SmartDashboard.getNumber("Set Velocity", 0);
+        m_pidController.setReference(setPoint, ControlType.kVelocity);
+      } catch ( RuntimeException ex){
+        DriverStation.reportError("Shooter: Error setting PID setpoint" + ex.getMessage(),true);
+      }
+      try {
+        processVariable = m_encoder.getVelocity();
+      } catch (RuntimeException ex){
+        DriverStation.reportError("Shooter: Not able to get velocity " + ex.getMessage(),true);
+        processVariable = 0;
+      }
+
     } else {
-      setPoint = SmartDashboard.getNumber("Set Position", 0);
+      setPoint = 0;
+      try { 
+        setPoint = SmartDashboard.getNumber("Set Position", 0);
+      } catch ( RuntimeException ex){
+        DriverStation.reportError("Shooter: Error getting PID position setpoint" + ex.getMessage(),true);
+      }
       /**
        * As with other PID modes, Smart Motion is set by calling the
        * setReference method on an existing pid object and setting
        * the control type to kSmartMotion
        */
-      m_pidController.setReference(setPoint, ControlType.kSmartMotion);
-      processVariable = m_encoder.getPosition();
+      processVariable = 0;
+      try {
+        m_pidController.setReference(setPoint, ControlType.kSmartMotion);
+        processVariable = m_encoder.getPosition();
+      } catch (RuntimeException ex){
+        DriverStation.reportError("Shooter: Error getting PID position " + ex.getMessage(),true);
+      }
     }
     
     SmartDashboard.putNumber("SetPoint", setPoint);
     SmartDashboard.putNumber("Process Variable", processVariable);
-    SmartDashboard.putNumber("Output", m_leftleadMotor.getAppliedOutput());
+    //SmartDashboard.putNumber("Output", m_leftleadMotor.getAppliedOutput());
   }
   public static boolean isshooteron = false;
  public void shooteron(){

@@ -5,52 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-public class shotterintake extends CommandBase {
+public class feeder extends CommandBase {
   /**
-   * Creates a new shotterdelivery.
+   * Creates a new shotterfeeder.
    */
-  public shotterintake() {
-    addRequirements(RobotContainer.m_intake);
-    }
-
-  boolean motoron = false;
+  
+  public feeder() {
+    addRequirements(RobotContainer.m_feeder);
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+  
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    /*
+     if(!RobotContainer.m_feeder.isfeederon){
+      RobotContainer.m_feeder.feederon();
+
+    } else {
+      RobotContainer.m_feeder.feederoff();
+    };
+    */
   }
-  
-  public void teleopPeriodic(){
-      if(motoron){
-        RobotContainer.m_intake.intakeon();
-      }else{
-        RobotContainer.m_intake.intakeoff();
-      }
-  }
-       
-  public void updateToggle()
-  {    
-    if(motoron){
-      motoron = false;
-    }else{
-      motoron = true;
-    }  
-  }
-    
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { 
-     updateToggle();
+  public void execute() {
+    RobotContainer.m_feeder.feedoneball();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
   }
 
   // Returns true when the command should end.

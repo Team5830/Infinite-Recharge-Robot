@@ -69,8 +69,12 @@ public final class Constants {
       public static final double kTurnToleranceDeg = 2;
       public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
     }
+    public static final class ShooterConstants {
+      public static final int waitforshootersecs = 10;
+      public static final double feedmotorspeed = 0.5;
   
+    }
     public static final class OIConstants {
       public static final int kDriverControllerPort = 1;
     }
-  }
+}

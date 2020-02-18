@@ -5,8 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
-
+package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Counter;
@@ -14,6 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class feeder extends SubsystemBase {
   /**
@@ -21,30 +21,31 @@ public class feeder extends SubsystemBase {
    */
   public static Victor feeder = new Victor(4);
   DigitalInput ballsensor = new DigitalInput(8);
-  public feeder() {
 
-  }
   public static boolean isfeederon = false;
   
   public void feedoneball(){
     ballsensor.requestInterrupts();
     ballsensor.setUpSourceEdge(false, true);
-    feederon();
-    ballsensor.waitForInterrupt(10);
+    feederon(Constants.ShooterConstants.feedmotorspeed);
+    ballsensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
+    ballsensor.cancelInterrupts(); // Reset so we can use it again 
     // Wait until ball passes -> ballsensor
     feederoff();
   }
-  public void feederon(){
-    
-    feeder.set(0.75);
+
+  public void feederon( double speed){
+    feeder.set(speed);
     isfeederon = true;
-    SmartDashboard.putBoolean("feederon", isfeederon);
+    SmartDashboard.putBoolean("feederon", true);
    }
+
   public void feederoff(){
    feeder.set(0);
    isfeederon = false;
-   SmartDashboard.putBoolean("feederon", isfeederon);
+   SmartDashboard.putBoolean("feederon", false);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -14,10 +14,9 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
 import frc.robot.commands.align.TurnToAngle;
-import frc.robot.subsystems.shooter;
-import frc.robot.commands.shotterdelivery;
-import frc.robot.commands.shotterfeeder;
-import frc.robot.commands.shotterintake;
+import frc.robot.commands.shooter.shooter;
+import frc.robot.commands.shooter.feeder;
+import frc.robot.commands.shooter.intake;
 public final class ControlChooser {
 
     int safetyChecker;
@@ -30,9 +29,9 @@ public final class ControlChooser {
     //Define buttons here
    // Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
    // Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-20,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button rightjoy1 = new JoystickButton(leftJoy,5).whenPressed(new shotterdelivery());
-    Button rightjoy2 = new JoystickButton(leftJoy,3).whenHeld(new shotterfeeder()); 
-    Button leftjoy1 = new JoystickButton(leftJoy,4).whenPressed(new shotterintake());
+    Button rightjoy1 = new JoystickButton(leftJoy,5).whenPressed(new shooter());
+    Button rightjoy2 = new JoystickButton(leftJoy,3).whenHeld(new feeder()); 
+    Button leftjoy1 = new JoystickButton(leftJoy,4).whenPressed(new intake());
     //These serve as temporary fillers to show how the Chooser methods work.
     //DELETE THESE!
     double exampleRobotDriveX;

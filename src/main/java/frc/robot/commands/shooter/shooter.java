@@ -5,39 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.feeder;
 
-public class shotterfeeder extends CommandBase {
+public class shooter extends CommandBase {
   /**
-   * Creates a new shotterfeeder.
+   * Creates a new flywheel.
    */
-  public shotterfeeder() {
-    addRequirements(RobotContainer.m_feeder);
+  public shooter() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /*
-     if(!feeder.isfeederon){
-      RobotContainer.m_feeder.feederon();
-
-    } else {
-      RobotContainer.m_feeder.feederoff();
-    };
-    */
-    RobotContainer.m_feeder.feederoff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_feeder.feedoneball();
+    
   }
 
   // Called once the command ends or is interrupted.
