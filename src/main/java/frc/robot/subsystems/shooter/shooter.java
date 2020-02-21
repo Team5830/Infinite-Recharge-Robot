@@ -11,9 +11,11 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.hal.ConstantsJNI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
   
 
 public class shooter extends SubsystemBase{
@@ -28,8 +30,8 @@ private CANPIDController m_pidController;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
 public void init(){
     try{
-        m_leftleadMotor = new CANSparkMax(1, MotorType.kBrushless);
-        m_rightfollowMotor = new CANSparkMax(2, MotorType.kBrushless);
+        m_leftleadMotor = new CANSparkMax(Constants.CANBusID.leftShooterMotor, MotorType.kBrushless);
+        m_rightfollowMotor = new CANSparkMax(Constants.CANBusID.rightShooterMotor, MotorType.kBrushless);
         m_leftleadMotor.restoreFactoryDefaults();
         m_rightfollowMotor.restoreFactoryDefaults();
          

@@ -19,14 +19,12 @@ public class feeder extends SubsystemBase {
   /**
    * Creates a new feeder.
    */
-  public static Victor feeder = new Victor(4);
-  DigitalInput ballsensor = new DigitalInput(8);
-
+  public static Victor feeder = new Victor(Constants.Ports.ShooterFeedMotor);
+  DigitalInput ballsensor = new DigitalInput(Constants.Ports.ShooterProximitySensor);
   public static boolean isfeederon = false;
-  
   public void feedoneball(){
     ballsensor.requestInterrupts();
-    ballsensor.setUpSourceEdge(false, true);
+    ballsensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
     feederon(Constants.ShooterConstants.feedmotorspeed);
     ballsensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
     ballsensor.cancelInterrupts(); // Reset so we can use it again 

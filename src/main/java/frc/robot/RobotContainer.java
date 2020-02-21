@@ -47,7 +47,6 @@ public class RobotContainer {
     configureButtonBindings();
     m_gyro.init();
     m_LIDAR.init();
-    m_intake.intakeoff();
    // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 

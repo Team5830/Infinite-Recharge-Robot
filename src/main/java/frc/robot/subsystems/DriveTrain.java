@@ -19,9 +19,9 @@ public class DriveTrain extends SubsystemBase {
    */
   // Right Side Motor Controllers
   private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(
-    new Spark(Ports.kLeftMotor1),
-    new Spark(Ports.kLeftMotor2),
-    new Spark(Ports.kLeftMotor3)
+    new Spark(Ports.kRightMotor1),
+    //new Spark(Ports.kRightMotor2),
+    new Spark(Ports.kRightMotor3)
     );
 
   // Left Side Motor Controllers

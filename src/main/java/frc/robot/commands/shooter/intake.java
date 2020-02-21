@@ -26,9 +26,11 @@ public class intake extends CommandBase {
   
   public void teleopPeriodic(){
       if(motoron){
-        RobotContainer.m_intake.intakeon();
+        RobotContainer.m_intake.startFirstIntake();
+        RobotContainer.m_intake.startSecondIntake();
       }else{
-        RobotContainer.m_intake.intakeoff();
+        RobotContainer.m_intake.stopFirstIntake();
+        RobotContainer.m_intake.stopSecondIntake();
       }
   }
        

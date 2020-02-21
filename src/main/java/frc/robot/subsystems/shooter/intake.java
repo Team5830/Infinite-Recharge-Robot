@@ -11,32 +11,41 @@ package frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class intake extends SubsystemBase {
   /**
    * Creates a new intake.
    */
-  public static Victor intake = new Victor(7);{
-    
-  }
-  public intake() {
+  public static Victor firstIntake = new Victor(Constants.Ports.firstintakemotor);
+  public static Victor secondIntake = new Victor(Constants.Ports.secondintakemotor);
+  public static boolean firstIntakeON = false;
+  public static boolean secondIntakeON = false;
   
+  public void startFirstIntake(){
+    firstIntake.set(1);
+    firstIntakeON = true;
+    SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
   }
-  public static boolean isintakeon = false;
-  public void intakeon(){
-    
-    intake.set(1);
- 
-    SmartDashboard.putBoolean("intakeon", true);
-    isintakeon = true;
+
+  public void startSecondIntake(){
+    secondIntake.set(1);
+    secondIntakeON = true;
+    SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
   }
-  public void intakeoff(){
-    
-   intake.set(0);
- 
-   SmartDashboard.putBoolean("intakeon", false);
-   isintakeon = false;
+
+  public void stopFirstIntake(){
+   firstIntake.set(0);
+   firstIntakeON = false;
+   SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
   }
+
+  public void stopSecondIntake(){
+    secondIntake.set(0);
+    secondIntakeON = false;
+    SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
+   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
