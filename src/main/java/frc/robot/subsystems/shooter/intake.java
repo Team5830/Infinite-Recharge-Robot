@@ -7,8 +7,9 @@
 
 package frc.robot.subsystems.shooter;
 
-
-import edu.wpi.first.wpilibj.Victor;
+//import edu.wpi.first.wpilibj.Talon;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,10 +18,10 @@ public class intake extends SubsystemBase {
   /**
    * Creates a new intake.
    */
-  public static Victor firstIntake = new Victor(Constants.Ports.firstintakemotor);
-  public static Victor secondIntake = new Victor(Constants.Ports.secondintakemotor);
-  public static boolean firstIntakeON = false;
-  public static boolean secondIntakeON = false;
+  public static WPI_TalonSRX firstIntake = new WPI_TalonSRX(Constants.CANBusID.firstintakeMotor);
+  public static WPI_TalonSRX secondIntake = new WPI_TalonSRX(Constants.CANBusID.secondintakeMotor);
+  public boolean firstIntakeON = false;
+  public boolean secondIntakeON = false;
   
   public void startFirstIntake(){
     firstIntake.set(1);

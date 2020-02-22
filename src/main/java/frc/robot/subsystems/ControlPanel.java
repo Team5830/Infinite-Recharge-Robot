@@ -7,13 +7,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,7 +28,7 @@ public class ControlPanel extends SubsystemBase {
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
-  private Spark controlPanel = new Spark(Constants.Ports.ControlPanelMotor);
+  private WPI_VictorSPX controlPanel = new WPI_VictorSPX(Constants.CANBusID.controlpanelMotor);
   private Encoder encoder = new Encoder(Constants.Ports.ControlPanelEncoder1, Constants.Ports.ControlPanelEncoder2);
 
   public ControlPanel() {

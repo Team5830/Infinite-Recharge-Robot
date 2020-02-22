@@ -18,41 +18,45 @@ package frc.robot;
 public final class Constants {
     public static final class Ports {
       // PWM Ports
-      public static final int kLeftMotor1  = 0;
+      /*public static final int kLeftMotor1  = 0;
       public static final int kLeftMotor2  = 1;
       public static final int kLeftMotor3  = 2;
       public static final int kRightMotor1 = 3;
-      //public static final int kRightMotor2 = 4;
       public static final int ShooterFeedMotor = 4;
       public static final int kRightMotor3 = 5;
       public static final int firstintakemotor = 8;
       public static final int ControlPanelMotor = 7;
       public static final int secondintakemotor = 9;
-      
+      */
       // DIO Ports
       public static final int LIDAR = 0;
       public static final int DIO1 = 1;
-      public static final int DIO2 = 2;
-      public static final int DIO3 = 3;
+      public static final int kRightEncoder1 = 2;
+      public static final int kRightEncoder2 = 3;
       public static final int ControlPanelEncoder1 = 4;
       public static final int ControlPanelEncoder2 = 5;  
       public static final int kLeftEncoder1  = 6;
       public static final int kLeftEncoder2  = 7;
       public static final int ShooterProximitySensor = 8;
-      public static final int kRightEncoder2 = 9;
+      public static final int DIO9 = 9;
     }
     public static final class CANBusID{
-      public static final int leftShooterMotor = 1;
-      public static final int rightShooterMotor = 2;
-      public static final int kLeftMotor1  = 3;
-      public static final int kLeftMotor2  = 4;
-      public static final int kRightMotor1 = 5;
-      public static final int kRightMotor2 = 6;
-
-      public static final int ShooterFeedMotor = 7;
-      public static final int firstintakemotor = 8;
-      public static final int secondintakemotor = 9;
-      public static final int controlpanelmotor = 10;
+      public static final int rightShooterMotor = 1;
+      public static final int leftShooterMotor = 2;
+      public static final int winchMotor = 3;
+      public static final int kLeftMotor1  = 4;
+      public static final int kLeftMotor2  = 5;
+      public static final int secondintakeMotor = 6; //Talon SRX
+      public static final int ShooterFeedMotor = 10;
+      public static final int controlpanelMotor = 8;
+      public static final int hookMotor = 7; //Talon SRX
+      public static final int firstintakeMotor = 9;
+      public static final int kRightMotor1 = 11;
+      public static final int kRightMotor2 = 12;
+      
+      
+     
+  
     }
     public static final class DriveConstants {
       public static final boolean kLeftEncoderReversed = false;

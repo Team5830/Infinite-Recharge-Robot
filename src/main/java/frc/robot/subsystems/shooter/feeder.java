@@ -10,7 +10,7 @@ package frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Victor;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,7 +19,7 @@ public class feeder extends SubsystemBase {
   /**
    * Creates a new feeder.
    */
-  public static Victor feeder = new Victor(Constants.Ports.ShooterFeedMotor);
+  public static WPI_VictorSPX feeder = new WPI_VictorSPX(Constants.CANBusID.ShooterFeedMotor);
   DigitalInput ballsensor = new DigitalInput(Constants.Ports.ShooterProximitySensor);
   public static boolean isfeederon = false;
   public void feedoneball(){
@@ -32,8 +32,8 @@ public class feeder extends SubsystemBase {
     feederoff();
   }
 
-  public void feederon( double speed){
-    feeder.set(speed);
+  public void feederon(double speed){
+    feeder.set(.50);
     isfeederon = true;
     SmartDashboard.putBoolean("feederon", true);
    }
