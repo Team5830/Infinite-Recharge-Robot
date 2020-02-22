@@ -44,7 +44,15 @@ public final class Constants {
     public static final class CANBusID{
       public static final int leftShooterMotor = 1;
       public static final int rightShooterMotor = 2;
+      public static final int kLeftMotor1  = 3;
+      public static final int kLeftMotor2  = 4;
+      public static final int kRightMotor1 = 5;
+      public static final int kRightMotor2 = 6;
 
+      public static final int ShooterFeedMotor = 7;
+      public static final int firstintakemotor = 8;
+      public static final int secondintakemotor = 9;
+      public static final int controlpanelmotor = 10;
     }
     public static final class DriveConstants {
       public static final boolean kLeftEncoderReversed = false;
