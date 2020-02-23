@@ -38,7 +38,7 @@ public class RobotContainer {
   public static final shooter m_shooter = new shooter();
   public static final feeder m_feeder = new feeder();
   public static final intake m_intake = new intake();
-  public static boolean isFeederon = false;
+  //public static boolean isFeederon = false;
   //public static final shooter m_shooter = new shooter();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

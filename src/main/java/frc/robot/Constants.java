@@ -46,17 +46,14 @@ public final class Constants {
       public static final int winchMotor = 3;
       public static final int kLeftMotor1  = 4;
       public static final int kLeftMotor2  = 5;
-      public static final int secondintakeMotor = 6; //Talon SRX
+      public static final int secondintakeMotor =  9; //Talon SRX
       public static final int ShooterFeedMotor = 10;
       public static final int controlpanelMotor = 8;
-      public static final int hookMotor = 7; //Talon SRX
-      public static final int firstintakeMotor = 9;
+      public static final int hookMotor = 7; 
+      public static final int firstintakeMotor =  6; //Talon SRX
       public static final int kRightMotor1 = 11;
       public static final int kRightMotor2 = 12;
       
-      
-     
-  
     }
     public static final class DriveConstants {
       public static final boolean kLeftEncoderReversed = false;

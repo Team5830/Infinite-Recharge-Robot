@@ -27,15 +27,15 @@ private CANSparkMax m_leftleadMotor;
 private CANSparkMax m_rightfollowMotor;
 private CANPIDController m_pidController;
   private CANEncoder m_encoder;
-public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
+public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, targetRPM, maxVel, minVel, maxAcc, allowedErr;
 public void init(){
     try{
         m_leftleadMotor = new CANSparkMax(Constants.CANBusID.leftShooterMotor, MotorType.kBrushless);
-        m_rightfollowMotor = new CANSparkMax(Constants.CANBusID.rightShooterMotor, MotorType.kBrushless);
+        //m_rightfollowMotor = new CANSparkMax(Constants.CANBusID.rightShooterMotor, MotorType.kBrushless);
         m_leftleadMotor.restoreFactoryDefaults();
-        m_rightfollowMotor.restoreFactoryDefaults();
+        //m_rightfollowMotor.restoreFactoryDefaults();
          
-        m_rightfollowMotor.follow(m_leftleadMotor);
+        //m_rightfollowMotor.follow(m_leftleadMotor);
     
         } catch (RuntimeException ex){
             DriverStation.reportError("error loading failed" + ex.getMessage(), true);
@@ -48,7 +48,7 @@ protected void execute() {
     m_encoder = m_leftleadMotor.getEncoder();
     
     // PID coefficients
-    kP = 5e-5; 
+    kP = 6e-5; 
     kI = 1e-6;
     kD = 0; 
     kIz = 0; 
@@ -60,6 +60,9 @@ protected void execute() {
     // Smart Motion Coefficients
     maxVel = 2000; // rpm
     maxAcc = 1500;
+
+    // targetRPM replacing smartmotion
+    targetRPM = 0;
 
     // set PID coefficients
     m_pidController.setP(kP);
@@ -82,12 +85,12 @@ protected void execute() {
      * - setSmartMotionAllowedClosedLoopError() will set the max allowed
      * error for the pid controller in Smart Motion mode
      */
-    int smartMotionSlot = 0;
+    /*int smartMotionSlot = 0;
     m_pidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
     m_pidController.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
     m_pidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
     m_pidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
-
+      */
     // display PID coefficients on SmartDashboard
     SmartDashboard.putNumber("P Gain", kP);
     SmartDashboard.putNumber("I Gain", kI);
@@ -105,6 +108,8 @@ protected void execute() {
     SmartDashboard.putNumber("Set Position", 0);
     SmartDashboard.putNumber("Set Velocity", 0);
 
+    //display targetRPM
+    SmartDashboard.putNumber("TargetRPM shooter", targetRPM);
     // button to toggle between velocity and smart motion modes
     SmartDashboard.putBoolean("Mode", true);
   }
@@ -123,6 +128,7 @@ protected void execute() {
     double minV = SmartDashboard.getNumber("Min Velocity", 0);
     double maxA = SmartDashboard.getNumber("Max Acceleration", 0);
     double allE = SmartDashboard.getNumber("Allowed Closed Loop Error", 0);
+    double tRPM = SmartDashboard.getNumber("TargetRPM shooter", 0);
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if((p != kP)) { m_pidController.setP(p); kP = p; }
@@ -134,12 +140,13 @@ protected void execute() {
       m_pidController.setOutputRange(min, max); 
       kMinOutput = min; kMaxOutput = max; 
     }
-    if((maxV != maxVel)) { m_pidController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
-    if((minV != minVel)) { m_pidController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
-    if((maxA != maxAcc)) { m_pidController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
-    if((allE != allowedErr)) { m_pidController.setSmartMotionAllowedClosedLoopError(allE,0); allowedErr = allE; }
+    //if((maxV != maxVel)) { m_pidController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
+    //if((minV != minVel)) { m_pidController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
+    //if((maxA != maxAcc)) { m_pidController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
+    //if((allE != allowedErr)) { m_pidController.setSmartMotionAllowedClosedLoopError(allE,0); allowedErr = allE; }
+   if((tRPM != targetRPM)) { m_pidController.setReference(tRPM, ControlType.kVelocity);}
 
-    double setPoint, processVariable;
+    /*double setPoint, processVariable;
     boolean mode = SmartDashboard.getBoolean("Mode", false);
     if(mode) {
       setPoint = 0;
@@ -162,13 +169,14 @@ protected void execute() {
         setPoint = SmartDashboard.getNumber("Set Position", 0);
       } catch ( RuntimeException ex){
         DriverStation.reportError("Shooter: Error getting PID position setpoint" + ex.getMessage(),true);
-      }
+      } 
+      */
       /**
        * As with other PID modes, Smart Motion is set by calling the
        * setReference method on an existing pid object and setting
        * the control type to kSmartMotion
        */
-      processVariable = 0;
+      /*processVariable = 0;
       try {
         m_pidController.setReference(setPoint, ControlType.kSmartMotion);
         processVariable = m_encoder.getPosition();
@@ -176,24 +184,26 @@ protected void execute() {
         DriverStation.reportError("Shooter: Error getting PID position " + ex.getMessage(),true);
       }
     }
-    
-    SmartDashboard.putNumber("SetPoint", setPoint);
-    SmartDashboard.putNumber("Process Variable", processVariable);
+    */
+    //SmartDashboard.putNumber("SetPoint", setPoint);
+    //SmartDashboard.putNumber("Process Variable", processVariable);
     //SmartDashboard.putNumber("Output", m_leftleadMotor.getAppliedOutput());
   }
-  public static boolean isshooteron = false;
+  public boolean isshooteron = false;
  public void shooteron(){
    
-   m_leftleadMotor.set(0.65);
-
+   //m_leftleadMotor.set(0.30);
+   targetRPM = 2000;
+    m_pidController.setReference(targetRPM, ControlType.kVelocity);
    SmartDashboard.putBoolean("shooteron", true);
    isshooteron = true;
  }
  public void shooteroff(){
    
-  m_leftleadMotor.set(0);
-
-  SmartDashboard.putBoolean("shooteron", false);
+  //m_leftleadMotor.set(0);
+  targetRPM = 0;
+  m_pidController.setReference(targetRPM, ControlType.kVelocity);
+  SmartDashboard.putBoolean("shooteroff", false);
   isshooteron = false;
  }
 }

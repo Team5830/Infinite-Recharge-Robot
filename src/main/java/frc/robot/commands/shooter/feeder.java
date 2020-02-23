@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 public class feeder extends CommandBase {
   /**
-   * Creates a new shotterfeeder.
+   * Creates a new shooterfeeder.
    */
   
   public feeder() {
@@ -19,24 +19,35 @@ public class feeder extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
   
-  
+  boolean feederon = false;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /*
-     if(!RobotContainer.m_feeder.isfeederon){
-      RobotContainer.m_feeder.feederon();
+  }
+   
+  public void teleopPeriodic(){
+     if(feederon) {
+      RobotContainer.m_feeder.feederon(-0.50);
 
     } else {
       RobotContainer.m_feeder.feederoff();
-    };
-    */
+    }
+    
   }
 
+  public void updateToggle()
+  {    
+    if(feederon){
+      feederon = false;
+    }else{
+      feederon = true;
+    }  
+  }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_feeder.feedoneball();
+     updateToggle();
+    //RobotContainer.m_feeder.feedoneball();
   }
 
   // Called once the command ends or is interrupted.

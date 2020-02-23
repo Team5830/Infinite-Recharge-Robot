@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 public class intake extends CommandBase {
   /**
-   * Creates a new shotterdelivery.
+   * Creates a new shooterdelivery.
    */
   public intake() {
     addRequirements(RobotContainer.m_intake);

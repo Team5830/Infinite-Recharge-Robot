@@ -24,13 +24,13 @@ public class intake extends SubsystemBase {
   public boolean secondIntakeON = false;
   
   public void startFirstIntake(){
-    firstIntake.set(1);
+    firstIntake.set(-0.5);
     firstIntakeON = true;
     SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
   }
 
   public void startSecondIntake(){
-    secondIntake.set(1);
+    secondIntake.set(-0.5);
     secondIntakeON = true;
     SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
   }

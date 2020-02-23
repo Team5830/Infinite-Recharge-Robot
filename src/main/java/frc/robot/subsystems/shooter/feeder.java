@@ -21,7 +21,7 @@ public class feeder extends SubsystemBase {
    */
   public static WPI_VictorSPX feeder = new WPI_VictorSPX(Constants.CANBusID.ShooterFeedMotor);
   DigitalInput ballsensor = new DigitalInput(Constants.Ports.ShooterProximitySensor);
-  public static boolean isfeederon = false;
+  public boolean isfeederon = false;
   public void feedoneball(){
     ballsensor.requestInterrupts();
     ballsensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
@@ -33,7 +33,7 @@ public class feeder extends SubsystemBase {
   }
 
   public void feederon(double speed){
-    feeder.set(.50);
+    feeder.set(-0.50);
     isfeederon = true;
     SmartDashboard.putBoolean("feederon", true);
    }
@@ -43,10 +43,11 @@ public class feeder extends SubsystemBase {
    isfeederon = false;
    SmartDashboard.putBoolean("feederon", false);
   }
-
+  
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler run    
+    
   }
 }
   
