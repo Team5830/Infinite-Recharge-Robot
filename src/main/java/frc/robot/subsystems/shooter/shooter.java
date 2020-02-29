@@ -23,25 +23,25 @@ public class shooter extends SubsystemBase{
  * create new shooter.
  */
  //shooter Controlers(right side)
-private CANSparkMax m_leftleadMotor;
-private CANSparkMax m_rightfollowMotor;
-private CANPIDController m_pidController;
-  private CANEncoder m_encoder;
+public CANSparkMax m_leftleadMotor;
+//public CANSparkMax m_rightfollowMotor;
+public CANPIDController m_pidController;
+  public CANEncoder m_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
 public void init(){
     try{
         m_leftleadMotor = new CANSparkMax(Constants.CANBusID.leftShooterMotor, MotorType.kBrushless);
-        m_rightfollowMotor = new CANSparkMax(Constants.CANBusID.rightShooterMotor, MotorType.kBrushless);
+       // m_rightfollowMotor = new CANSparkMax(Constants.CANBusID.rightShooterMotor, MotorType.kBrushless);
         m_leftleadMotor.restoreFactoryDefaults();
-        m_rightfollowMotor.restoreFactoryDefaults();
+        //m_rightfollowMotor.restoreFactoryDefaults();
          
-        m_rightfollowMotor.follow(m_leftleadMotor);
+       // m_rightfollowMotor.follow(m_leftleadMotor);
     
         } catch (RuntimeException ex){
             DriverStation.reportError("error loading failed" + ex.getMessage(), true);
         }
-        }
-protected void execute() {  
+        
+
     // initialze PID controller and encoder object
 
     m_pidController = m_leftleadMotor.getPIDController();
@@ -184,14 +184,14 @@ protected void execute() {
   public static boolean isshooteron = false;
  public void shooteron(){
    
-   m_leftleadMotor.set(0.65);
+  // m_leftleadMotor.set(0.65);
 
    SmartDashboard.putBoolean("shooteron", true);
    isshooteron = true;
  }
  public void shooteroff(){
    
-  m_leftleadMotor.set(0);
+ // m_leftleadMotor.set(0);
 
   SmartDashboard.putBoolean("shooteron", false);
   isshooteron = false;
