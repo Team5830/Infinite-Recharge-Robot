@@ -4,21 +4,18 @@
 
 package frc.robot.misc;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+//import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
 import frc.robot.commands.align.TurnToAngle;
-import frc.robot.commands.shooter.shooter;
 import frc.robot.commands.shooter.shooter_instant;
-import frc.robot.commands.shooter.feeder;
 import frc.robot.commands.shooter.feederinstant;
-import frc.robot.commands.shooter.intake;
 import frc.robot.commands.shooter.intake_a_instant;
 import frc.robot.commands.shooter.intake_b_instant;
+
 public final class ControlChooser {
 
     int safetyChecker;
@@ -27,8 +24,8 @@ public final class ControlChooser {
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
 
-    //Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    //Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button turnright5 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button turnleft5 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
     Button shooter_button = new JoystickButton(rightJoy,6).whenPressed(new shooter_instant());
     Button feeder_button = new JoystickButton(rightJoy,4).whenPressed(new feederinstant()); 
     Button intake_a_button = new JoystickButton(rightJoy,3).whenPressed(new intake_a_instant());

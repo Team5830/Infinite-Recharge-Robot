@@ -19,15 +19,17 @@ public final class Constants {
     public static final class Ports {
      
       // DIO Ports
-      public static final int LIDAR = 1;
-      public static final int rightDriveEncoder1 = 2;
-      public static final int rightDriveEncoder2 = 3;
+      
+      public static final int rightDriveEncoder1 = 0;
+      public static final int rightDriveEncoder2 = 1;
+      public static final int leftDriveEncoder1 =  2;
+      public static final int leftDriveEncoder2 =  3;
       public static final int ControlPanelEncoder1 = 4;
-      public static final int ControlPanelEncoder2 = 5;  
-      public static final int leftDriveEncoder1 = 6;
-      public static final int leftDriveEncoder2 = 7;
+      public static final int ControlPanelEncoder2 = 5;
+      public static final int LIDAR = 6;
+      
       //public static final int DIO7  = 7;
-      public static final int ShooterProximitySensor = 8;
+      public static final int ShooterProximitySensor = 9;
       public static final int DIO9 = 9;
     }
     public static final class CANBusID{
@@ -56,14 +58,23 @@ public final class Constants {
           (kWheelCircInches) / (double) kEncoderCPR/10.71;//Gear Ratio = 1:10.71
   
       public static final boolean kGyroReversed = false;
-  
-      public static final double kStabilizationP = 1;
-      public static final double kStabilizationI = 0.5;
-      public static final double kStabilizationD = 0;
-  
+     
+      //public static final double kStabilizationP = 1;
+      //public static final double kStabilizationI = 0.5;
+      //public static final double kStabilizationD = 0;
+
+      public static final double MaxAlignSpeed = 0.2; 
+      public static final double kDriveP = 1;
+      public static final double kDriveI = 0;
+      public static final double kDriveD = 0;
+
+      public static final double kPositionToleranceInches = 3;
+      public static final double feetPerSec = 0.5;
+      public static final double kPositionRateToleranceInchesPerS = feetPerSec*12;
+
       public static final double kTurnP = 1;
       public static final double kTurnI = 0;
-      public static final double kTurnD = 2;
+      public static final double kTurnD = 0;
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;

@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.misc.ControlChooser;
 import frc.robot.misc.SensorReset;
 import frc.robot.misc.SmartDashboardInterface;
-import frc.robot.subsystems.gyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to

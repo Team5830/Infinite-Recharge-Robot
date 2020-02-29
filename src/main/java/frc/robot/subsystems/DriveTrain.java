@@ -9,15 +9,12 @@ package frc.robot.subsystems;
 
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CANBusID;
-import edu.wpi.first.wpilibj.Spark;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -41,8 +38,13 @@ public class DriveTrain extends SubsystemBase {
     m_leftencoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse); //6"/5 counts per rev
     m_rightencoder.setDistancePerPulse (Constants.DriveConstants.kEncoderDistancePerPulse); 
   }
+  
   public void TankDrive(double left, double right){
     m_drive.tankDrive(left, right);
+  }
+  
+  public void ArcadeDrive(double xSpeed, double zRotation){
+    m_drive.arcadeDrive(xSpeed, zRotation);
   }
 
   public double getAverageDistance(){

@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems.shooter;
 
-//import edu.wpi.first.wpilibj.Talon;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;

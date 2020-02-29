@@ -7,9 +7,10 @@
 
 package frc.robot.commands.align;
 
-import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import edu.wpi.first.wpiutil.math.MathUtil;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.gyro;
 import frc.robot.Constants.DriveConstants;
@@ -18,20 +19,21 @@ import frc.robot.Constants.DriveConstants;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 //RobotContainer.m_driveTrain.TankDrive(ControlChooser.leftJoy.getY(), ControlChooser.rightJoy.getY())
-public class TurnToAngle extends PIDCommand {
+public class TurnToAngleProfiled extends ProfiledPIDCommand {
   // This will turn to a fixed angle determined by where the gyro was set to zero  
-  public TurnToAngle( double targetAngleDegrees, DriveTrain drive, gyro sampleGyro, boolean relativeAngle) {
+  public TurnToAngleProfiled( double targetAngleDegrees, DriveTrain drive, gyro sampleGyro, boolean relativeAngle) {
     super( 
-         new PIDController(DriveConstants.kTurnP, DriveConstants.kTurnI, DriveConstants.kTurnD),
+         new ProfiledPIDController(DriveConstants.kTurnP, DriveConstants.kTurnI, DriveConstants.kTurnD, new TrapezoidProfile.Constraints(
+            DriveConstants.kMaxTurnRateDegPerS,
+            DriveConstants.kMaxTurnAccelerationDegPerSSquared)),
           // Close loop on heading
           sampleGyro::getHeading,
           // Set reference to target, make sure not bigger then +- 180
           // If relative angle then add to current heading
           Math.IEEEremainder(targetAngleDegrees+(relativeAngle ? sampleGyro.getHeading() : 0), 360),
           // Pipe output to turn robot
-          output -> drive.TankDrive( -MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
-          DriveConstants.kMaxTurnPIDTurnSpeed),MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, 
-          DriveConstants.kMaxTurnPIDTurnSpeed)),
+          (output, setpoint) -> drive.ArcadeDrive(0, MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, DriveConstants.kMaxTurnPIDTurnSpeed)),
+          //(output, setpoint) -> drive.TankDrive( -MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, DriveConstants.kMaxTurnPIDTurnSpeed),MathUtil.clamp(output, -DriveConstants.kMaxTurnPIDTurnSpeed, DriveConstants.kMaxTurnPIDTurnSpeed)),
           // Require the drive
           drive);
 
@@ -46,7 +48,7 @@ public class TurnToAngle extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return getController().atGoal();
   }
 }
 
