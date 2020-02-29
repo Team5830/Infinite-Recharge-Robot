@@ -30,7 +30,7 @@ public class intake extends SubsystemBase {
   }
 
   public void startSecondIntake(){
-    secondIntake.set(-0.5);
+    secondIntake.set(-0.6);
     secondIntakeON = true;
     SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
   }

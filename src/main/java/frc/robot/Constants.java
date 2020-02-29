@@ -17,26 +17,16 @@ package frc.robot;
  */
 public final class Constants {
     public static final class Ports {
-      // PWM Ports
-      /*public static final int kLeftMotor1  = 0;
-      public static final int kLeftMotor2  = 1;
-      public static final int kLeftMotor3  = 2;
-      public static final int kRightMotor1 = 3;
-      public static final int ShooterFeedMotor = 4;
-      public static final int kRightMotor3 = 5;
-      public static final int firstintakemotor = 8;
-      public static final int ControlPanelMotor = 7;
-      public static final int secondintakemotor = 9;
-      */
+     
       // DIO Ports
-      public static final int LIDAR = 0;
-      public static final int DIO1 = 1;
-      public static final int kRightEncoder1 = 2;
-      public static final int kRightEncoder2 = 3;
+      public static final int LIDAR = 1;
+      public static final int rightDriveEncoder1 = 2;
+      public static final int rightDriveEncoder2 = 3;
       public static final int ControlPanelEncoder1 = 4;
       public static final int ControlPanelEncoder2 = 5;  
-      public static final int kLeftEncoder1  = 6;
-      public static final int kLeftEncoder2  = 7;
+      public static final int leftDriveEncoder1 = 6;
+      public static final int leftDriveEncoder2 = 7;
+      //public static final int DIO7  = 7;
       public static final int ShooterProximitySensor = 8;
       public static final int DIO9 = 9;
     }
@@ -59,11 +49,11 @@ public final class Constants {
       public static final boolean kLeftEncoderReversed = false;
       public static final boolean kRightEncoderReversed = true;
   
-      public static final int kEncoderCPR = 1024;
-      public static final double kWheelDiameterInches = 6;
+      public static final int kEncoderCPR = 20;
+      public static final double kWheelCircInches = 18.5;
       public static final double kEncoderDistancePerPulse =
           // Assumes the encoders are directly mounted on the wheel shafts
-          (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+          (kWheelCircInches) / (double) kEncoderCPR/10.71;//Gear Ratio = 1:10.71
   
       public static final boolean kGyroReversed = false;
   
