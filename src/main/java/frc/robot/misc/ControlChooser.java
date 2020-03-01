@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
+import frc.robot.commands.ExtendHook;
+import frc.robot.commands.RetractHook;
 import frc.robot.commands.align.TurnToAngle;
 import frc.robot.commands.shooter.shooter_instant;
 import frc.robot.commands.shooter.feederinstant;
@@ -30,6 +32,10 @@ public final class ControlChooser {
     Button feeder_button = new JoystickButton(rightJoy,4).whenPressed(new feederinstant()); 
     Button intake_a_button = new JoystickButton(rightJoy,3).whenPressed(new intake_a_instant());
     Button intake_b_button = new JoystickButton(rightJoy,5).whenPressed(new intake_b_instant());
+    Button extend_climber = new JoystickButton(rightJoy,8).whenPressed(new ExtendHook());
+    Button retract_climber = new JoystickButton(rightJoy,9).whenPressed(new RetractHook());
+    
+    
   
     public void ControlInit(final int controlMethod) {
         switch (controlMethod) {

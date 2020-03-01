@@ -27,8 +27,7 @@ public class feeder extends CommandBase {
    
   public void teleopPeriodic(){
      if(feederon) {
-      RobotContainer.m_feeder.feederon(-0.50);
-
+      RobotContainer.m_feeder.feederon();
     } else {
       RobotContainer.m_feeder.feederoff();
     }
