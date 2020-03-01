@@ -44,8 +44,8 @@ public final class Constants {
       public static final int kLeftMotor2  = 5;
       public static final int secondintakeMotor =  9; //Talon SRX
       public static final int ShooterFeedMotor = 10;
-      public static final int controlpanelMotor = 8;
-      public static final int hookMotor = 7; 
+      public static final int controlpanelMotor = 7;
+      public static final int hookMotor = 8; 
       public static final int firstintakeMotor =  6; //Talon SRX
       public static final int kRightMotor1 = 11;
       public static final int kRightMotor2 = 12;
@@ -90,7 +90,11 @@ public final class Constants {
     public static final class ShooterConstants {
       public static final int waitforshootersecs = 10;
       public static final double feedmotorspeed = 0.5;
+      public static final double shootermotorspeed = 0.2;
   
+    }
+    public static final class ClimberConstants {
+      public static final double climbmotorspeed = 0.2;
     }
     public static final class OIConstants {
       public static final int kDriverControllerPort = 1;

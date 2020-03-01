@@ -25,17 +25,24 @@ public class feeder extends SubsystemBase {
   public void feedoneball(){
     ballsensor.requestInterrupts();
     ballsensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
-    feederon(Constants.ShooterConstants.feedmotorspeed);
+    feederon();
     ballsensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
     ballsensor.cancelInterrupts(); // Reset so we can use it again 
     // Wait until ball passes -> ballsensor
     feederoff();
   }
 
-  public void feederon(double speed){
-    feeder.set(-0.50);
+  public void feederon(){
+    feeder.set(-Constants.ShooterConstants.feedmotorspeed);
     isfeederon = true;
     SmartDashboard.putBoolean("feederon", true);
+   }
+
+   public void feederreverse(){
+    feeder.set(Constants.ShooterConstants.feedmotorspeed);
+    isfeederon = true;
+    SmartDashboard.putBoolean("feederon", true);
+    SmartDashboard.putBoolean("feedereversed", true);
    }
 
   public void feederoff(){

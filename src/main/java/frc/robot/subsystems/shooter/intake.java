@@ -20,6 +20,8 @@ public class intake extends SubsystemBase {
   public static WPI_TalonSRX secondIntake = new WPI_TalonSRX(Constants.CANBusID.secondintakeMotor);
   public boolean firstIntakeON = false;
   public boolean secondIntakeON = false;
+  public boolean firstINtakeReversed = false;
+  public boolean secondINtakeReversed = false;
   
   public void startFirstIntake(){
     firstIntake.set(-0.5);
@@ -33,16 +35,36 @@ public class intake extends SubsystemBase {
     SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
   }
 
+  public void reverseFirstIntake(){
+    firstIntake.set(0.5);
+    firstIntakeON = true;
+    firstINtakeReversed = true;
+    SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
+    SmartDashboard.putBoolean("FirstIntakeReversed", firstINtakeReversed);
+  }
+
+  public void reverseSecondIntake(){
+    secondIntake.set(0.6);
+    secondIntakeON = true;
+    secondINtakeReversed = true;
+    SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
+    SmartDashboard.putBoolean("SecondIntakeReversed", secondINtakeReversed);
+  }
+
   public void stopFirstIntake(){
    firstIntake.set(0);
    firstIntakeON = false;
+   firstINtakeReversed = false;
    SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
+   SmartDashboard.putBoolean("FirstIntakeReversed", firstINtakeReversed);
   }
 
   public void stopSecondIntake(){
     secondIntake.set(0);
     secondIntakeON = false;
+    secondINtakeReversed = false;
     SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
+    SmartDashboard.putBoolean("SecondIntakeReversed", secondINtakeReversed);
    }
 
   @Override

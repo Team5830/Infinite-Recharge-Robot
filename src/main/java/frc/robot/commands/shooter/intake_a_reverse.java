@@ -13,20 +13,19 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class feederinstant extends InstantCommand {
-  public feederinstant() {
+public class intake_a_reverse extends InstantCommand {
+  public intake_a_reverse() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.m_feeder);
+    addRequirements(RobotContainer.m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!RobotContainer.m_feeder.isfeederon){
-      RobotContainer.m_feeder.feederon();
-      } else {
-        RobotContainer.m_feeder.feederoff();
-      }
+    if(!RobotContainer.m_intake.firstIntakeON){
+      RobotContainer.m_intake.reverseFirstIntake();
+    } else{
+      RobotContainer.m_intake.stopFirstIntake();
+    }
+    }
   }
-
-}
