@@ -20,7 +20,7 @@ public class feeder extends SubsystemBase {
    * Creates a new feeder.
    */
   public static WPI_VictorSPX feeder = new WPI_VictorSPX(Constants.CANBusID.ShooterFeedMotor);
-  DigitalInput ballsensor = new DigitalInput(Constants.Ports.ShooterProximitySensor);
+  DigitalInput ballsensor = new DigitalInput(Constants.Ports.ShooterProximitySensor  );
   public boolean isfeederon = false;
   public void feedoneball(){
     ballsensor.requestInterrupts();

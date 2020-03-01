@@ -30,7 +30,11 @@ public final class Constants {
       
       //public static final int DIO7  = 7;
       public static final int ShooterProximitySensor = 9;
-      public static final int DIO9 = 9;
+      public static final int intakeProximitySensor1 = 8;
+      public static final int intakeProximitySensor2 = 10;
+      public static final int feederProximitySensor3 = 11;
+      public static final int feederProximitySensor4 = 12;
+      public static final int feederProximitySensor5 = 13;
     }
     public static final class CANBusID{
       public static final int rightShooterMotor = 1;

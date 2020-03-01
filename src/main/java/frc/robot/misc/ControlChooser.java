@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
 import frc.robot.commands.align.TurnToAngle;
 import frc.robot.commands.shooter.shooter_instant;
+import frc.robot.commands.shooter.feeder_b_revirse;
 import frc.robot.commands.shooter.feederinstant;
 import frc.robot.commands.shooter.intake_a_instant;
 import frc.robot.commands.shooter.intake_b_instant;
@@ -26,8 +27,9 @@ public final class ControlChooser {
 
     Button turnright5 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
     Button turnleft5 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button shooter_button = new JoystickButton(rightJoy,6).whenPressed(new shooter_instant());
+    Button shooter_button = new JoystickButton(rightJoy,1).whenPressed(new shooter_instant());
     Button feeder_button = new JoystickButton(rightJoy,4).whenPressed(new feederinstant()); 
+    Button feeder_b_Button = new JoystickButton(rightJoy,6).whenPressed(new feeder_b_revirse());
     Button intake_a_button = new JoystickButton(rightJoy,3).whenPressed(new intake_a_instant());
     Button intake_b_button = new JoystickButton(rightJoy,5).whenPressed(new intake_b_instant());
   
