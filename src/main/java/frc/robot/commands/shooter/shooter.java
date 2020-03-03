@@ -18,15 +18,33 @@ public class shooter extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_shooter, RobotContainer.m_feeder, RobotContainer.m_intake);
   }
-
+  boolean shooteron = false;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     //turn Shooter on 
-    RobotContainer.m_shooter.shooteron();
+    //RobotContainer.m_shooter.shooteron();
     // Feed balls forward until one is ready 
   }
 
+  public void teleopPeriodic(){
+    if(shooteron){
+     RobotContainer.m_shooter.shooteron();
+      
+    }else{
+     RobotContainer.m_shooter.shooteroff();
+     
+    }
+}
+     
+public void updateToggle()
+{    
+  if(shooteron){
+    shooteron = false;
+  }else{
+    shooteron = true;
+  }  
+}
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {

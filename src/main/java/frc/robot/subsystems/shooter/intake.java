@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems.shooter;
 
-//import edu.wpi.first.wpilibj.Talon;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,29 +20,51 @@ public class intake extends SubsystemBase {
   public static WPI_TalonSRX secondIntake = new WPI_TalonSRX(Constants.CANBusID.secondintakeMotor);
   public boolean firstIntakeON = false;
   public boolean secondIntakeON = false;
+  public boolean firstINtakeReversed = false;
+  public boolean secondINtakeReversed = false;
   
   public void startFirstIntake(){
-    firstIntake.set(1);
+    firstIntake.set(-0.5);
     firstIntakeON = true;
     SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
   }
 
   public void startSecondIntake(){
-    secondIntake.set(1);
+    secondIntake.set(-0.6);
     secondIntakeON = true;
     SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
+  }
+
+  public void reverseFirstIntake(){
+    firstIntake.set(0.5);
+    firstIntakeON = true;
+    firstINtakeReversed = true;
+    SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
+    SmartDashboard.putBoolean("FirstIntakeReversed", firstINtakeReversed);
+  }
+
+  public void reverseSecondIntake(){
+    secondIntake.set(0.6);
+    secondIntakeON = true;
+    secondINtakeReversed = true;
+    SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
+    SmartDashboard.putBoolean("SecondIntakeReversed", secondINtakeReversed);
   }
 
   public void stopFirstIntake(){
    firstIntake.set(0);
    firstIntakeON = false;
+   firstINtakeReversed = false;
    SmartDashboard.putBoolean("FirstIntakeOn", firstIntakeON);
+   SmartDashboard.putBoolean("FirstIntakeReversed", firstINtakeReversed);
   }
 
   public void stopSecondIntake(){
     secondIntake.set(0);
     secondIntakeON = false;
+    secondINtakeReversed = false;
     SmartDashboard.putBoolean("SecondIntakeOn", secondIntakeON);
+    SmartDashboard.putBoolean("SecondIntakeReversed", secondINtakeReversed);
    }
 
   @Override

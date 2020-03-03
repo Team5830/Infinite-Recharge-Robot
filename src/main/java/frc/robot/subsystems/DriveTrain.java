@@ -9,15 +9,12 @@ package frc.robot.subsystems;
 
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.CANBusID;
-//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.CANBusID;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -34,17 +31,34 @@ public class DriveTrain extends SubsystemBase {
   WPI_VictorSPX m_leftfollow = new WPI_VictorSPX(CANBusID.kLeftMotor2);
 
   DifferentialDrive m_drive = new DifferentialDrive(m_leftlead, m_rightlead);
-  
+  private Encoder m_leftencoder = new Encoder(Constants.Ports.leftDriveEncoder1, Constants.Ports.leftDriveEncoder2);
+  private Encoder m_rightencoder = new Encoder(Constants.Ports.rightDriveEncoder1, Constants.Ports.rightDriveEncoder2);
+
+  public void initEncoder(){
+    m_leftencoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse); //6"/5 counts per rev
+    m_rightencoder.setDistancePerPulse (Constants.DriveConstants.kEncoderDistancePerPulse); 
+  }
   
   public void TankDrive(double left, double right){
     m_drive.tankDrive(left, right);
   }
-    // Right side drive encoder
-     ///m_leftEncoder  = m_
-     // m_rightEncoder = new m_rightlead.encoder();
+  
+  public void ArcadeDrive(double xSpeed, double zRotation){
+    m_drive.arcadeDrive(xSpeed, zRotation);
+  }
 
-    
-    
-     // m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-      //m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+  public double getAverageDistance(){
+  return (m_leftencoder.getDistance()+m_rightencoder.getDistance())/2;
+  }
+  public double getLeftDistance(){
+    return (m_leftencoder.getDistance());
+  }
+  public double getRightDistance(){
+    return (-m_rightencoder.getDistance());
+  }
+   public void periodic() {
+      SmartDashboard.putNumber("Encoder Distance", getAverageDistance());
+      SmartDashboard.putNumber("Right Encoder Distance",getRightDistance());
+      SmartDashboard.putNumber("Left Encoder Distance",getLeftDistance());
+    }
 }

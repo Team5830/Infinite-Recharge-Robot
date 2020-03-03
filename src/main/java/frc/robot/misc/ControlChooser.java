@@ -4,20 +4,21 @@
 
 package frc.robot.misc;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+//import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
+import frc.robot.commands.ExtendHook;
+import frc.robot.commands.RetractHook;
 import frc.robot.commands.align.TurnToAngle;
-import frc.robot.commands.shooter.shooter;
-import frc.robot.commands.shooter.feeder;
+import frc.robot.commands.shooter.shooter_instant;
+import frc.robot.commands.shooter.feeder_b_revirse;
 import frc.robot.commands.shooter.feederinstant;
-import frc.robot.commands.shooter.intake;
 import frc.robot.commands.shooter.intake_a_instant;
 import frc.robot.commands.shooter.intake_b_instant;
+
 public final class ControlChooser {
 
     int safetyChecker;
@@ -26,12 +27,17 @@ public final class ControlChooser {
     public static Joystick rightJoy = new Joystick(1);
     //Define buttons here
 
-    //Button leftjoy3 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    //Button leftjoy4 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button shooter_button = new JoystickButton(rightJoy,6).whenPressed(new shooter());
+    Button turnright5 = new JoystickButton(leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button turnleft5 = new JoystickButton(leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button shooter_button = new JoystickButton(rightJoy,1).whenPressed(new shooter_instant());
     Button feeder_button = new JoystickButton(rightJoy,4).whenPressed(new feederinstant()); 
+    Button feeder_b_Button = new JoystickButton(rightJoy,6).whenPressed(new feeder_b_revirse());
     Button intake_a_button = new JoystickButton(rightJoy,3).whenPressed(new intake_a_instant());
     Button intake_b_button = new JoystickButton(rightJoy,5).whenPressed(new intake_b_instant());
+    Button extend_climber = new JoystickButton(rightJoy,8).whenPressed(new ExtendHook());
+    Button retract_climber = new JoystickButton(rightJoy,9).whenPressed(new RetractHook());
+    
+    
   
     public void ControlInit(final int controlMethod) {
         switch (controlMethod) {

@@ -13,20 +13,19 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class feederinstant extends InstantCommand {
-  public feederinstant() {
+public class shooter_instant extends InstantCommand {
+  public shooter_instant() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.m_feeder);
+    addRequirements(RobotContainer.m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!RobotContainer.m_feeder.isfeederon){
-      RobotContainer.m_feeder.feederon();
-      } else {
-        RobotContainer.m_feeder.feederoff();
-      }
+    if(!RobotContainer.m_shooter.isshooteron){
+      RobotContainer.m_shooter.shooteron();
+    } else{
+      RobotContainer.m_shooter.shooteroff();
+    }
+    }
   }
-
-}

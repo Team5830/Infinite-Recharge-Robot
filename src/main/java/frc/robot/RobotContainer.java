@@ -9,9 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.controlpanel.ControlPanelIndex;
 import frc.robot.commands.DriveTrain_TankDrive;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LIDAR;
@@ -38,7 +38,8 @@ public class RobotContainer {
   public static final shooter m_shooter = new shooter();
   public static final feeder m_feeder = new feeder();
   public static final intake m_intake = new intake();
-  public static boolean isFeederon = false;
+  public static final Climber m_climber = new Climber();
+  //public static boolean isFeederon = false;
   //public static final shooter m_shooter = new shooter();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -48,6 +49,8 @@ public class RobotContainer {
     configureButtonBindings();
     m_gyro.init();
     m_LIDAR.init();
+    m_driveTrain.initEncoder();
+    m_shooter.init();
    // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 

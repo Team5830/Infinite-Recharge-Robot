@@ -17,28 +17,24 @@ package frc.robot;
  */
 public final class Constants {
     public static final class Ports {
-      // PWM Ports
-      /*public static final int kLeftMotor1  = 0;
-      public static final int kLeftMotor2  = 1;
-      public static final int kLeftMotor3  = 2;
-      public static final int kRightMotor1 = 3;
-      public static final int ShooterFeedMotor = 4;
-      public static final int kRightMotor3 = 5;
-      public static final int firstintakemotor = 8;
-      public static final int ControlPanelMotor = 7;
-      public static final int secondintakemotor = 9;
-      */
+     
       // DIO Ports
-      public static final int LIDAR = 0;
-      public static final int DIO1 = 1;
-      public static final int kRightEncoder1 = 2;
-      public static final int kRightEncoder2 = 3;
+      
+      public static final int rightDriveEncoder1 = 0;
+      public static final int rightDriveEncoder2 = 1;
+      public static final int leftDriveEncoder1 =  2;
+      public static final int leftDriveEncoder2 =  3;
       public static final int ControlPanelEncoder1 = 4;
-      public static final int ControlPanelEncoder2 = 5;  
-      public static final int kLeftEncoder1  = 6;
-      public static final int kLeftEncoder2  = 7;
-      public static final int ShooterProximitySensor = 8;
-      public static final int DIO9 = 9;
+      public static final int ControlPanelEncoder2 = 5;
+      public static final int LIDAR = 6;
+      
+      //public static final int DIO7  = 7;
+      public static final int ShooterProximitySensor = 9;
+      public static final int intakeProximitySensor1 = 8;
+      public static final int intakeProximitySensor2 = 10;
+      public static final int feederProximitySensor3 = 11;
+      public static final int feederProximitySensor4 = 12;
+      public static final int feederProximitySensor5 = 13;
     }
     public static final class CANBusID{
       public static final int rightShooterMotor = 1;
@@ -46,37 +42,43 @@ public final class Constants {
       public static final int winchMotor = 3;
       public static final int kLeftMotor1  = 4;
       public static final int kLeftMotor2  = 5;
-      public static final int secondintakeMotor = 6; //Talon SRX
+      public static final int secondintakeMotor =  9; //Talon SRX
       public static final int ShooterFeedMotor = 10;
-      public static final int controlpanelMotor = 8;
-      public static final int hookMotor = 7; //Talon SRX
-      public static final int firstintakeMotor = 9;
+      public static final int controlpanelMotor = 7;
+      public static final int hookMotor = 8; 
+      public static final int firstintakeMotor =  6; //Talon SRX
       public static final int kRightMotor1 = 11;
       public static final int kRightMotor2 = 12;
       
-      
-     
-  
     }
     public static final class DriveConstants {
       public static final boolean kLeftEncoderReversed = false;
       public static final boolean kRightEncoderReversed = true;
   
-      public static final int kEncoderCPR = 1024;
-      public static final double kWheelDiameterInches = 6;
+      public static final int kEncoderCPR = 20;
+      public static final double kWheelCircInches = 18.5;
       public static final double kEncoderDistancePerPulse =
           // Assumes the encoders are directly mounted on the wheel shafts
-          (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+          (kWheelCircInches) / (double) kEncoderCPR/10.71;//Gear Ratio = 1:10.71
   
       public static final boolean kGyroReversed = false;
-  
-      public static final double kStabilizationP = 1;
-      public static final double kStabilizationI = 0.5;
-      public static final double kStabilizationD = 0;
-  
+     
+      //public static final double kStabilizationP = 1;
+      //public static final double kStabilizationI = 0.5;
+      //public static final double kStabilizationD = 0;
+
+      public static final double MaxAlignSpeed = 0.2; 
+      public static final double kDriveP = 1;
+      public static final double kDriveI = 0;
+      public static final double kDriveD = 0;
+
+      public static final double kPositionToleranceInches = 3;
+      public static final double feetPerSec = 0.5;
+      public static final double kPositionRateToleranceInchesPerS = feetPerSec*12;
+
       public static final double kTurnP = 1;
       public static final double kTurnI = 0;
-      public static final double kTurnD = 2;
+      public static final double kTurnD = 0;
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;
@@ -88,7 +90,11 @@ public final class Constants {
     public static final class ShooterConstants {
       public static final int waitforshootersecs = 10;
       public static final double feedmotorspeed = 0.5;
+      public static final double shootermotorspeed = 0.2;
   
+    }
+    public static final class ClimberConstants {
+      public static final double climbmotorspeed = 0.2;
     }
     public static final class OIConstants {
       public static final int kDriverControllerPort = 1;

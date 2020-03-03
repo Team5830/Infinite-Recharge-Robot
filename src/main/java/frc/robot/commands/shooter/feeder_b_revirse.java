@@ -5,36 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.align;
+package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.RobotContainer;
 
-public class AlignDistance extends CommandBase {
-  /**
-   * Creates a new AlignDistance.
-   */
-  public AlignDistance() {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class feeder_b_revirse extends InstantCommand {
+  public feeder_b_revirse() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.m_feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if(!RobotContainer.m_feeder.isfeederon){
+      RobotContainer.m_feeder.feederon(0.50);
+      } else {
+        RobotContainer.m_feeder.feederoff();
+      }
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 }
