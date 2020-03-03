@@ -23,7 +23,7 @@ public class feeder_b_revirse extends InstantCommand {
   @Override
   public void initialize() {
     if(!RobotContainer.m_feeder.isfeederon){
-      RobotContainer.m_feeder.feederon(0.50);
+      RobotContainer.m_feeder.feederon();
       } else {
         RobotContainer.m_feeder.feederoff();
       }
