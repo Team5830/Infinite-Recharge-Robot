@@ -91,7 +91,7 @@ public final class Constants {
     public static final class ShooterConstants {
       public static final int waitforshootersecs = 5;
       public static final double feedmotorspeed = 0.5;
-      public static final double shootermotorspeed = 0.2;
+      public static final double shootermotorspeed = 1000;
   
     }
     //public static final class IntakeConstants{}
