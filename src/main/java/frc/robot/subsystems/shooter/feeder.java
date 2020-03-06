@@ -14,23 +14,30 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.indexing;
 
 public class feeder extends SubsystemBase {
   /**
    * Creates a new feeder.
    */
+
   public static WPI_VictorSPX feeder = new WPI_VictorSPX(Constants.CANBusID.ShooterFeedMotor);
-  DigitalInput ballsensor = new DigitalInput(Constants.Ports.ShooterProximitySensor  );
+  //DigitalInput ballsensor = new DigitalInput(Constants.Ports.shooterProximitySensor  );
   public boolean isfeederon = false;
   public void feedoneball(){
-    ballsensor.requestInterrupts();
-    ballsensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
+   // ballsensor.requestInterrupts();
+    //ballsensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
+    indexing.shooterSensor.requestInterrupts();
+    indexing.shooterSensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
     feederon();
-    ballsensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
-    ballsensor.cancelInterrupts(); // Reset so we can use it again 
+    //ballsensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
+    //ballsensor.cancelInterrupts(); // Reset so we can use it again 
+    indexing.shooterSensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
+    indexing.shooterSensor.cancelInterrupts(); // Reset so we can use it again 
+   
     // Wait until ball passes -> ballsensor
     feederoff();
-  }
+  }//
 
   public void feederon(){
     feeder.set(-Constants.ShooterConstants.feedmotorspeed);
