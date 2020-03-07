@@ -28,13 +28,13 @@ public final class Constants {
       public static final int ControlPanelEncoder2 = 5;
       public static final int LIDAR = 6;
       
-      //public static final int DIO7  = 7;
-      public static final int ShooterProximitySensor = 9;
-      public static final int intakeProximitySensor1 = 8;
+      public static final int shooterProximitySensor = 8;
+      public static final int intakeProximitySensor1 = 9;
       public static final int intakeProximitySensor2 = 10;
-      public static final int feederProximitySensor3 = 11;
-      public static final int feederProximitySensor4 = 12;
-      public static final int feederProximitySensor5 = 13;
+      public static final int feederProximitySensor1 = 11;
+      public static final int feederProximitySensor2 = 12;
+      public static final int feederProximitySensor3 = 13;
+      public static final int entranceProximitysensor = 14;
     }
     public static final class CANBusID{
       public static final int rightShooterMotor = 1;

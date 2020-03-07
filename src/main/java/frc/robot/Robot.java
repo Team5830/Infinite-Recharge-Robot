@@ -10,13 +10,10 @@ package frc.robot;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.misc.ControlChooser;
-import frc.robot.misc.SensorReset;
-import frc.robot.misc.SmartDashboardInterface;
+//import frc.robot.commands.DefaultDrive;
+//import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -28,14 +25,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private ControlChooser m_controlChooser;
-  private SmartDashboardInterface m_smartDashboardInterface;
-  private SensorReset m_sensorReset;
 
-   //Joysticks
-   
- 
-   SendableChooser<Number> speed = new SendableChooser<>();
  
 
   /**
@@ -47,14 +37,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_controlChooser = new ControlChooser();
-    m_smartDashboardInterface = new SmartDashboardInterface();
-    m_sensorReset = new SensorReset();
-    
-    m_smartDashboardInterface.SmartDashboardInit();
-    m_sensorReset.ResetSensors();
-
-    RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
+    //CommandScheduler.getInstance().setDefaultCommand(DriveTrain, DefaultDrive);
     
   }
 
@@ -71,12 +54,8 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    
     CommandScheduler.getInstance().run();
-    m_smartDashboardInterface.SmartDashboardPeriodic();
-
-    //Resets sensors when driver presses Shuffleboard button
-    if(SmartDashboard.getBoolean("Reset Sensors", false)) m_sensorReset.ResetSensors();
-
     
   }
 
@@ -97,7 +76,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_controlChooser.ControlInit(SmartDashboardInterface.controlType.getSelected());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -110,7 +88,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
+    //m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
   }
 
   @Override
@@ -122,7 +100,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_controlChooser.ControlInit(SmartDashboardInterface.controlType.getSelected());
+   // m_controlChooser.ControlInit(SmartDashboardInterface.controlType.getSelected());
   }
 
   /**
@@ -130,7 +108,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
+    //m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
  
     
     //The robot may drive backwards or spin around due to different drivetrain configurations.
