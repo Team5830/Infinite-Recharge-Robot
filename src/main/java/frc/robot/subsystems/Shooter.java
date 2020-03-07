@@ -40,11 +40,11 @@ public void init(){
         }
     motorspeed = Constants.ShooterConstants.shootermotorspeed;
     // PID coefficients
-    kP = 6e-5; 
+    kP = 0.1;
     kI = 0;
     kD = 0; 
     kIz = 0; 
-    kFF = 0.000015; 
+    kFF = 0.000015;
     kMaxOutput = 1; 
     kMinOutput = -1;
     maxRPM = 5700;

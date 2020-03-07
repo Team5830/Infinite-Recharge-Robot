@@ -13,7 +13,7 @@ public class Autonomous extends SequentialCommandGroup {
 public Autonomous(DriveTrain drive) {
 
     addCommands(
-        new DriveStraight(4, drive, .20) 
+        new DriveStraight(12, drive, .20) 
         );
 }
 

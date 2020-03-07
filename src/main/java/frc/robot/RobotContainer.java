@@ -9,9 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -30,6 +31,7 @@ public class RobotContainer {
   private final Gyro m_gyro = new Gyro();
   private final LIDAR m_lidar = new LIDAR();
   private final Shooter m_shooter = new Shooter();
+  public static final Intake m_intake = new Intake();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -48,6 +50,21 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    Button intake_a_button = new JoystickButton(m_rightJoy,3).whenPressed(new first_intake_instant());
+    Button intake_b_button = new JoystickButton(m_rightJoy,5).whenPressed(new second_intake_instant());
+    Button movetobutton = new JoystickButton(m_leftJoy,3).whenPressed(new MoveToDistanceLIDAR(12, m_drivetrain, m_lidar, true ).withTimeout(5)) ;
+    Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_drivetrain));
+    /*
+    Button turnright5 = new JoystickButton(m_leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button turnleft5 = new JoystickButton(m_leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
+    Button shooter_button = new JoystickButton(m_rightJoy,1).whenPressed(new shooter_instant());
+    Button feeder_button = new JoystickButton(m_rightJoy,4).whenPressed(new feederinstant()); 
+    Button feeder_b_Button = new JoystickButton(m_rightJoy,6).whenPressed(new feeder_b_revirse());
+    
+    Button extend_climber = new JoystickButton(m_rightJoy,8).whenPressed(new ExtendHook());
+    Button retract_climber = new JoystickButton(m_rightJoy,9).whenPressed(new RetractHook());
+    Button extend_winch = new JoystickButton(m_rightJoy, 10).whenPressed(new Extendwinch());
+    */
   }
   
   private void initializeSensors(){
