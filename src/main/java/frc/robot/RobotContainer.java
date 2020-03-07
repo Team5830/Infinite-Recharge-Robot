@@ -26,14 +26,16 @@ public class RobotContainer {
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final Joystick m_leftJoy = new Joystick(0);
   private final Joystick m_rightJoy = new Joystick(1);
-
   private final CommandBase m_autonomousCommand = new Autonomous(m_drivetrain);
-
+  private final Gyro m_gyro = new Gyro();
+  private final LIDAR m_lidar = new LIDAR();
+  private final Shooter m_shooter = new Shooter();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    initializeSensors();
     // Configure the button bindings
     configureButtonBindings();
     m_drivetrain.setDefaultCommand(new TankDrive(() -> m_leftJoy.getY(), () -> m_rightJoy.getY(), m_drivetrain ));
@@ -47,7 +49,14 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
   }
+  
+  private void initializeSensors(){
+    m_gyro.init();
+    m_lidar.init();
+    m_drivetrain.initEncoder();
+    m_shooter.init();
 
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
