@@ -56,6 +56,15 @@ public class DriveTrain extends SubsystemBase {
   public double getRightDistance(){
     return (-m_rightencoder.getDistance());
   }
+public double getDifference(){
+  return (getLeftDistance()-getRightDistance()); 
+
+}
+  public void reset() {
+    m_leftencoder.reset();
+    m_rightencoder.reset();
+  }
+
    public void periodic() {
       SmartDashboard.putNumber("Encoder Distance", getAverageDistance());
       SmartDashboard.putNumber("Right Encoder Distance",getRightDistance());
