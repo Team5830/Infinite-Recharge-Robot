@@ -6,17 +6,16 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 
-public class Autonomous extends CommandBase {
-  /**
-   * Creates a new Autonomous.
-   */
-  public Autonomous(DriveTrain drive) {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+public class Autonomous extends SequentialCommandGroup {
+public Autonomous(DriveTrain drive) {
+
+    addCommands(
+        new DriveStraight(4, drive, .20) 
+        );
+}
 
   // Called when the command is initially scheduled.
   @Override
