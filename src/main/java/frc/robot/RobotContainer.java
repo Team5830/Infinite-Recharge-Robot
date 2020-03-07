@@ -17,6 +17,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LIDAR;
 import frc.robot.subsystems.shooter.feeder;
 import frc.robot.subsystems.gyro;
+import frc.robot.subsystems.Winch;
 import frc.robot.subsystems.shooter.intake;
 import frc.robot.subsystems.shooter.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,6 +40,7 @@ public class RobotContainer {
   public static final feeder m_feeder = new feeder();
   public static final intake m_intake = new intake();
   public static final Climber m_climber = new Climber();
+  public static final Winch m_winch = new Winch();
   //public static boolean isFeederon = false;
   //public static final shooter m_shooter = new shooter();
   /**

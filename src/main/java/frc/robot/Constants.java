@@ -94,9 +94,12 @@ public final class Constants {
   
     }
     public static final class ClimberConstants {
-      public static final double climbmotorspeed = 0.2;
+      public static final double climbmotorspeed = 0.35;
     }
     public static final class OIConstants {
       public static final int kDriverControllerPort = 1;
+    }
+    public static final class WinchConstants{
+      public static final double winchmotorspeed = 0.34;
     }
 }

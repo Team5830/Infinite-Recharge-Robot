@@ -18,7 +18,7 @@ import frc.robot.commands.shooter.feeder_b_revirse;
 import frc.robot.commands.shooter.feederinstant;
 import frc.robot.commands.shooter.intake_a_instant;
 import frc.robot.commands.shooter.intake_b_instant;
-
+import frc.robot.commands.Extendwinch;
 public final class ControlChooser {
 
     int safetyChecker;
@@ -36,7 +36,7 @@ public final class ControlChooser {
     Button intake_b_button = new JoystickButton(rightJoy,5).whenPressed(new intake_b_instant());
     Button extend_climber = new JoystickButton(rightJoy,8).whenPressed(new ExtendHook());
     Button retract_climber = new JoystickButton(rightJoy,9).whenPressed(new RetractHook());
-    
+    Button extend_winch = new JoystickButton(rightJoy, 10).whenPressed(new Extendwinch());
     
   
     public void ControlInit(final int controlMethod) {
