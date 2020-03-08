@@ -13,8 +13,8 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class second_intake_instant extends InstantCommand {
-  public second_intake_instant() {
+public class SecondintakeToggle extends InstantCommand {
+  public SecondintakeToggle() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_intake);
   }

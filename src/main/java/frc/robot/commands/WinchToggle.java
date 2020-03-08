@@ -8,26 +8,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Winch;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class shooter_instant extends InstantCommand {
-  private Shooter m_shooter;
-  public shooter_instant(Shooter shooter_in) {
-    m_shooter = shooter_in;
+public class WinchToggle extends InstantCommand {
+  Winch m_winch;
+  public WinchToggle(Winch winch_in) {
+    m_winch = winch_in;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_shooter);
+    addRequirements(m_winch);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!m_shooter.isshooteron){
-      m_shooter.shooteron();
+    if(!m_winch.iswinchon){
+      m_winch.WinchOn();
     } else{
-      m_shooter.shooteroff();
-    }
+      m_winch.winchOff();
     }
   }
+}

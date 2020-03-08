@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -9,26 +8,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.RobotContainer;
-
+import frc.robot.subsystems.Feeder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class first_intake_instant extends InstantCommand {
-  //Intake m_intake;
-  public first_intake_instant() {
-
+public class FeederReverse extends InstantCommand {
+  Feeder m_feeder;
+  public FeederReverse(Feeder feeder_in) {
+    m_feeder = feeder_in;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.m_intake);
+    addRequirements(m_feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!RobotContainer.m_intake.firstIntakeON){
-      RobotContainer.m_intake.startFirstIntake();
-    } else{
-      RobotContainer.m_intake.stopFirstIntake();
-    }
-    }
+    if(!m_feeder.isfeederon){
+      m_feeder.feederon();
+      } else {
+        m_feeder.feederoff();
+      }
   }
+
+}

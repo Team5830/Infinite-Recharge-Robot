@@ -15,7 +15,7 @@ public class Indexing extends SubsystemBase {
   /**
    * Creates a new indexing.
    */
-//  public indexing() {
+
   public static DigitalInput intakeSensor1 = new DigitalInput(Constants.Ports.intakeProximitySensor1);
   public static DigitalInput intakeSensor2 = new DigitalInput(Constants.Ports.intakeProximitySensor2);
   public static DigitalInput shooterSensor = new DigitalInput(Constants.Ports.shooterProximitySensor);
@@ -39,7 +39,7 @@ public class Indexing extends SubsystemBase {
   }
 public int getBallCount(){
     int ballCount = 0;
-    //resetFeed();
+
     if (feederSensor3.get()){
       ballCount += 1;
     }
