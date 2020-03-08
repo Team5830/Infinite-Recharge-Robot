@@ -7,7 +7,10 @@
 
 package frc.robot;
 
+//import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -29,6 +32,12 @@ public class Robot extends TimedRobot {
   private SmartDashboardInterface m_smartDashboardInterface;
   private SensorReset m_sensorReset;
 
+   //Joysticks
+   
+ 
+   SendableChooser<Number> speed = new SendableChooser<>();
+ 
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -44,6 +53,9 @@ public class Robot extends TimedRobot {
     
     m_smartDashboardInterface.SmartDashboardInit();
     m_sensorReset.ResetSensors();
+
+    RobotContainer.m_driveTrain.setDefaultCommand(RobotContainer.m_tankDrive);
+    
   }
 
   /**
@@ -64,6 +76,8 @@ public class Robot extends TimedRobot {
 
     //Resets sensors when driver presses Shuffleboard button
     if(SmartDashboard.getBoolean("Reset Sensors", false)) m_sensorReset.ResetSensors();
+
+    
   }
 
   /**
@@ -117,6 +131,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_controlChooser.ControlSafety(SmartDashboardInterface.controlType.getSelected());
+ 
+    
+    //The robot may drive backwards or spin around due to different drivetrain configurations.
+    //Play with these SmartDashboard parameters so it drives correctly.
+     
+ 
   }
 
   @Override

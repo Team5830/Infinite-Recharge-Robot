@@ -9,8 +9,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.controlpanel.ControlPanelIndex;
+import frc.robot.commands.DriveTrain_TankDrive;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.LIDAR;
+import frc.robot.subsystems.shooter.feeder;
+import frc.robot.subsystems.gyro;
+import frc.robot.subsystems.shooter.intake;
+import frc.robot.subsystems.shooter.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -21,18 +29,29 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-
-
+ // public static final ControlPanel m_controlPanel = new ControlPanel();
+  public static final DriveTrain m_driveTrain = new DriveTrain();
+  public static final Command m_tankDrive = new DriveTrain_TankDrive(m_driveTrain);
+  //private final ControlPanelIndex m_controlPanelIndex = new ControlPanelIndex(m_controlPanel);
+  public static final LIDAR m_LIDAR = new LIDAR();
+  public static final gyro m_gyro = new gyro();
+  public static final shooter m_shooter = new shooter();
+  public static final feeder m_feeder = new feeder();
+  public static final intake m_intake = new intake();
+  public static final Climber m_climber = new Climber();
+  //public static boolean isFeederon = false;
+  //public static final shooter m_shooter = new shooter();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    m_gyro.init();
+    m_LIDAR.init();
+    m_driveTrain.initEncoder();
+    m_shooter.init();
+   // SmartDashboard.putData("Control Panel Index", m_controlPanelIndex);
   }
 
   /**
@@ -52,6 +71,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
