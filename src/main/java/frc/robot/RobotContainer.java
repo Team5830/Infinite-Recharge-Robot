@@ -36,11 +36,11 @@ public class RobotContainer {
   public static final Feeder m_feeder = new Feeder();
   public static final Climber m_climber = new Climber();
   public static final Winch m_winch = new Winch();
-
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    m_shooter.init();
     initializeSensors();
     // Configure the button bindings
     configureButtonBindings();
@@ -71,8 +71,6 @@ public class RobotContainer {
     /*
     Button turnright5 = new JoystickButton(m_leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
     Button turnleft5 = new JoystickButton(m_leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-     
-    
     */
   }
   
@@ -81,8 +79,8 @@ public class RobotContainer {
     m_lidar.init();
     m_drivetrain.initEncoder();
     m_shooter.init();
-
-  }
+    m_index.init();
+  } 
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -11,17 +11,29 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class Indexing extends SubsystemBase {
   /**
    * Creates a new indexing.
    */
-
-  public static DigitalInput intakeSensor1 = new DigitalInput(Constants.Ports.intakeProximitySensor1);
-  public static DigitalInput intakeSensor2 = new DigitalInput(Constants.Ports.intakeProximitySensor2);
-  public static DigitalInput shooterSensor = new DigitalInput(Constants.Ports.shooterProximitySensor);
-  public static DigitalInput feederSensor1 = new DigitalInput(Constants.Ports.feederProximitySensor1);
-  public static DigitalInput feederSensor2 = new DigitalInput(Constants.Ports.feederProximitySensor2);
-  public static DigitalInput feederSensor3 = new DigitalInput(Constants.Ports.feederProximitySensor3);
+  public static DigitalInput intakeSensor1;
+  public static DigitalInput intakeSensor2;
+  public static DigitalInput feederSensor1;
+  public static DigitalInput feederSensor2;
+  public static DigitalInput feederSensor3;
+  
+  public void init(){
+    try{
+      intakeSensor1 = new DigitalInput(Constants.Ports.intakeProximitySensor1);
+      intakeSensor2 = new DigitalInput(Constants.Ports.intakeProximitySensor2);
+      feederSensor1 = new DigitalInput(Constants.Ports.feederProximitySensor1);
+      feederSensor2 = new DigitalInput(Constants.Ports.feederProximitySensor2);
+      feederSensor3 = new DigitalInput(Constants.Ports.feederProximitySensor3);
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error in indexing init: " + ex.getMessage(), true);
+    }
+  }
   public boolean intake1Get(){
     return(intakeSensor1.get());
   }
