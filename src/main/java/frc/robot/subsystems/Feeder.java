@@ -19,14 +19,14 @@ public class Feeder extends SubsystemBase {
    * Creates a new Feeder.
    */
   public static WPI_VictorSPX feeder = new WPI_VictorSPX(Constants.CANBusID.ShooterFeedMotor);
-  DigitalInput ballsensor = new DigitalInput(Constants.Ports.shooterProximitySensor  );
+  //DigitalInput ballsensor = new DigitalInput(Constants.Ports.shooterProximitySensor  );
   public boolean isfeederon = false;
   public void feedoneball(){
-    ballsensor.requestInterrupts();
-    ballsensor.setUpSourceEdge(false, true);  // Set to trigger on falling edge
+    Indexing.feederSensor1.requestInterrupts();
+    Indexing.feederSensor1.setUpSourceEdge(false, true);  // Set to trigger on falling edge
     feederon();
-    ballsensor.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
-    ballsensor.cancelInterrupts(); // Reset so we can use it again 
+    Indexing.feederSensor1.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
+    Indexing.feederSensor1.cancelInterrupts(); // Reset so we can use it again 
     // Wait until ball passes -> ballsensor
     feederoff();
   }
