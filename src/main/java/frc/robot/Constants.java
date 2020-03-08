@@ -45,10 +45,10 @@ public final class Constants {
       public static final int leftShooterMotor = 2;
       public static final int winchMotor = 3;
       public static final int kLeftMotor1  = 4;
-      public static final int kLeftMotor2  = 5;
+      public static final int kLeftMotor2  = 7;
       public static final int secondintakeMotor =  9; //Talon SRX
       public static final int ShooterFeedMotor = 10;
-      public static final int controlpanelMotor = 7;
+      public static final int controlpanelMotor = 5; //Controller 5 is not working
       public static final int hookMotor = 8; 
       public static final int firstintakeMotor =  6; //Talon SRX
       public static final int kRightMotor1 = 11;

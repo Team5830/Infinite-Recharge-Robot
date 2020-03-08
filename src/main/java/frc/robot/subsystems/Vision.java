@@ -38,5 +38,6 @@ public class Vision extends SubsystemBase {
     targetScore = SmartDashboard.getNumber("HT score",-1);
     ballXpos = SmartDashboard.getNumber("Ball xPosition",-1);
     ballYpos = SmartDashboard.getNumber("Ball yPosition",-1);
+
   }
 }

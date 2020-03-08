@@ -73,6 +73,6 @@ public int getBallCount(){
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Ball Count", getBallCount());
+    //SmartDashboard.putNumber("Ball Count", getBallCount());
   }
 }
