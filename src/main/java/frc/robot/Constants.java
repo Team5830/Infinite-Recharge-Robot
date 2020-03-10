@@ -45,10 +45,17 @@ public final class Constants {
       public static final int leftShooterMotor = 2;
       public static final int winchMotor = 3;
       public static final int kLeftMotor1  = 4;
+<<<<<<< HEAD
       public static final int kLeftMotor2  = 7;
       public static final int secondintakeMotor =  9; //Talon SRX
       public static final int ShooterFeedMotor = 10;
       public static final int controlpanelMotor = 5; //Controller 5 is not working
+=======
+      public static final int kLeftMotor2  = 7; // temp fix motorcontrol 5 bad
+      public static final int secondintakeMotor =  9; //Talon SRX
+      public static final int ShooterFeedMotor = 10;
+      public static final int controlpanelMotor = 5; // motorcontrol 5 bad
+>>>>>>> 87e2fbb930b715d77d231b30378320d64f0d7fca
       public static final int hookMotor = 8; 
       public static final int firstintakeMotor =  6; //Talon SRX
       public static final int kRightMotor1 = 11;
