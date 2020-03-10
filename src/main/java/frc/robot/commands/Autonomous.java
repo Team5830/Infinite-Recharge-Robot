@@ -6,14 +6,19 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Rotate;
+import frc.robot.subsystems.Move;
+import frc.robot.commands.TurnAbsDegrees;
+import frc.robot.commands.MoveInFeet;
 
 public class Autonomous extends SequentialCommandGroup {
-public Autonomous(DriveTrain drive) {
+public Autonomous(Rotate turn, Move go) {
 
     addCommands(
-        new DriveStraight(12, drive, .20) 
+        new TurnAbsDegrees(turn,10.0),
+        new MoveInFeet(go)
         );
 }
 

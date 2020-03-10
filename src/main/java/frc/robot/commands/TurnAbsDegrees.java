@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Rotate;
@@ -16,16 +18,24 @@ public class TurnAbsDegrees extends CommandBase {
    * Creates a new TurnAbsDegrees.
    */
   private final Rotate m_drivetrain;
-  
-  public TurnAbsDegrees(Rotate drivetrain) {
+  private Double absAngle = 200.0;
+  public TurnAbsDegrees(Rotate drivetrain, Double angle_in) {
     m_drivetrain = drivetrain;
+    if (angle_in <=180 && angle_in >= -180){
+      absAngle = angle_in;
+    } 
     addRequirements(m_drivetrain);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_drivetrain.setTarget(SmartDashboard.getNumber("Angle", 0));
+    if (absAngle <=180 && absAngle >= -180){
+      m_drivetrain.setTarget(absAngle);
+    }else{
+      m_drivetrain.setTarget(SmartDashboard.getNumber("Angle", 0));
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
