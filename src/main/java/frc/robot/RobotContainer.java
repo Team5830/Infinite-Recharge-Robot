@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -25,6 +26,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveTrain m_drivetrain = new DriveTrain();
+  public static final Move m_move = new Move();
+  public static final Rotate m_rotate = new Rotate();
   public static final Joystick m_leftJoy = new Joystick(0);
   public static final Joystick m_rightJoy = new Joystick(1);
   public static final CommandBase m_autonomousCommand = new Autonomous(m_drivetrain);
@@ -42,9 +45,15 @@ public class RobotContainer {
   public RobotContainer() {
     m_shooter.init();
     initializeSensors();
+    addBoxes();
     // Configure the button bindings
     configureButtonBindings();
     m_drivetrain.setDefaultCommand(new TankDrive(() -> m_leftJoy.getY(), () -> m_rightJoy.getY(), m_drivetrain ));
+  }
+
+  public void addBoxes(){
+    SmartDashboard.putNumber("Feet", 0);
+    SmartDashboard.putNumber("Angle", 0);
   }
 
   /**
@@ -62,16 +71,15 @@ public class RobotContainer {
     Button feeder_reverse_Button = new JoystickButton(m_rightJoy,6).whenPressed(new FeederReverse(m_feeder));
     Button extend_climber = new JoystickButton(m_rightJoy,8).whenPressed(new ExtendHook(m_climber));
     Button retract_climber = new JoystickButton(m_rightJoy,9).whenPressed(new RetractHook(m_climber));
-    Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_drivetrain));
     Button extend_winch = new JoystickButton(m_rightJoy, 10).whenPressed(new WinchToggle(m_winch));
-    // Left Joystick
-    Button movetobutton = new JoystickButton(m_leftJoy,3).whenPressed(new MoveToDistanceLIDAR(12, m_drivetrain, m_lidar, true ).withTimeout(5)) ;
-   
+    Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_drivetrain));
     Button pickup_button = new JoystickButton(m_rightJoy,12).whenPressed(new PickupPC(m_index, m_intake));
-    /*
-    Button turnright5 = new JoystickButton(m_leftJoy,3).whenPressed(new TurnToAngle(5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    Button turnleft5 = new JoystickButton(m_leftJoy,4).whenPressed(new TurnToAngle(-5,RobotContainer.m_driveTrain,RobotContainer.m_gyro,true ).withTimeout(5));
-    */
+    // Left Joystick
+    Button movetobutton = new JoystickButton(m_leftJoy,5).whenPressed(new MoveInFeet(m_move).withTimeout(5)) ;
+    Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new Rotate90(m_rotate).withTimeout(5));
+    Button face_left = new JoystickButton(m_leftJoy,4).whenPressed(new Rotatem90(m_rotate).withTimeout(5));
+    Button turn_to_angle = new JoystickButton(m_leftJoy,6).whenPressed(new TurnAbsDegrees(m_rotate).withTimeout(5));
+    
   }
   
   private void initializeSensors(){

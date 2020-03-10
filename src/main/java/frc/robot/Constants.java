@@ -58,7 +58,8 @@ public final class Constants {
     public static final class DriveConstants {
       public static final boolean kLeftEncoderReversed = false;
       public static final boolean kRightEncoderReversed = true;
-  
+      public static final double kSVolts= 0 ; //FeedForward values for drive
+      public static final double kVVoltSecondsPerRotation = 0 ; //FeedForward values for drive
       public static final int kEncoderCPR = 20;
       public static final double kWheelCircInches = 18.5;
       public static final double kEncoderDistancePerPulse =
@@ -66,12 +67,9 @@ public final class Constants {
           (kWheelCircInches) / (double) kEncoderCPR/10.71;//Gear Ratio = 1:10.71
   
       public static final boolean kGyroReversed = false;
-     
-      //public static final double kStabilizationP = 1;
-      //public static final double kStabilizationI = 0.5;
-      //public static final double kStabilizationD = 0;
-
+      // PID parameters for drivetrain straight motion
       public static final double MaxAlignSpeed = 0.2; 
+      public static final double MaxAlignAccel = 0.5;
       public static final double kDriveP = 1;
       public static final double kDriveI = 0;
       public static final double kDriveD = 0;
@@ -79,14 +77,14 @@ public final class Constants {
       public static final double kPositionToleranceInches = 3;
       public static final double feetPerSec = 0.5;
       public static final double kPositionRateToleranceInchesPerS = feetPerSec*12;
-
+      // PID parameters for drivetrain rotation
       public static final double kTurnP = 1;
       public static final double kTurnI = 0;
       public static final double kTurnD = 0;
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;
-      public static final double kMaxTurnPIDTurnSpeed = 0.2;
+      public static final double MaxRotateSpeed = 0.2;
   
       public static final double kTurnToleranceDeg = 0.5;
       public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
