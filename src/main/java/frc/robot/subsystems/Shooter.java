@@ -6,6 +6,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.ExternalFollower;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -31,6 +32,7 @@ public void init(){
         m_rightfollowMotor = new CANSparkMax(Constants.CANBusID.rightShooterMotor, MotorType.kBrushless);
         m_leftleadMotor.restoreFactoryDefaults();
         m_rightfollowMotor.restoreFactoryDefaults();
+        m_leftleadMotor.follow(ExternalFollower.kFollowerDisabled,0);
         m_rightfollowMotor.follow(m_leftleadMotor, true); //Reverses motor
         //m_rightfollowMotor.setInverted(true);  Doesn't work for follower
         m_pidController = m_leftleadMotor.getPIDController();
@@ -40,14 +42,13 @@ public void init(){
         }
     motorspeed = Constants.ShooterConstants.shootermotorspeed;
     // PID coefficients
-    kP = 0.1;
+    kP = 0.0005;
     kI = 0;
     kD = 0; 
     kIz = 0; 
     kFF = 0.000015;
-    kMaxOutput = 1; 
-    kMinOutput = -1;
-    maxRPM = 5700;
+    kMaxOutput = 0.7; 
+    kMinOutput = -0.7;
 
     // set PID coefficients
     m_pidController.setP(kP);
@@ -90,6 +91,11 @@ public void init(){
     if((d != kD)) { m_pidController.setD(d); kD = d; }
     if((iz != kIz)) { m_pidController.setIZone(iz); kIz = iz; }
     if((ff != kFF)) { m_pidController.setFF(ff); kFF = ff; }
+    if (isshooteron){
+      m_pidController.setReference(motorspeed, ControlType.kVelocity);
+    }else{
+      m_pidController.setReference(0, ControlType.kVelocity);
+    }
     if((max != kMaxOutput) || (min != kMinOutput)) { 
       m_pidController.setOutputRange(min, max); 
       kMinOutput = min; kMaxOutput = max; 
@@ -113,7 +119,6 @@ public void init(){
    isshooteron = true;
  }
  public void shooteroff(){
-   
   //m_pidController.setReference(motorspeed, ControlType.kVelocity);
   m_leftleadMotor.set(0);
 

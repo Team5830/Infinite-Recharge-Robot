@@ -33,7 +33,7 @@ public class DriveTrain extends SubsystemBase {
   
  
 
-  DifferentialDrive m_drive = new DifferentialDrive(m_leftlead, m_rightlead);
+  DifferentialDrive m_drive ;//= new DifferentialDrive(m_leftlead, m_rightlead);
   
   private Encoder m_leftencoder = new Encoder(Constants.Ports.leftDriveEncoder1, Constants.Ports.leftDriveEncoder2);
   private Encoder m_rightencoder = new Encoder(Constants.Ports.rightDriveEncoder1, Constants.Ports.rightDriveEncoder2);
@@ -41,12 +41,17 @@ public class DriveTrain extends SubsystemBase {
   public void initEncoder(){
     m_leftencoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse); //6"/5 counts per rev
     m_rightencoder.setDistancePerPulse (Constants.DriveConstants.kEncoderDistancePerPulse); 
-  } 
-
-  public void TankDrive(double left, double right){
+  }
+  
+  public void initMotor(){
     m_rightfollow.follow(m_rightlead);
     m_leftfollow.follow(m_leftlead);
+    m_drive = new DifferentialDrive(m_leftlead, m_rightlead);
+  }
 
+
+  public void TankDrive(double left, double right){
+    
     //m_rightlead.setInverted(false); // pick CW versus CCW when motor controller is positive/green
     //m_rightfollow.setInverted(InvertType.FollowMaster); // match whatever talon0 is
     //m_leftlead.setInverted(false); // pick CW versus CCW when motor controller is positive/green

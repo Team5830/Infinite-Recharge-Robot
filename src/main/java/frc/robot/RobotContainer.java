@@ -39,6 +39,7 @@ public class RobotContainer {
   public static final Feeder m_feeder = new Feeder();
   public static final Climber m_climber = new Climber();
   public static final Winch m_winch = new Winch();
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -54,6 +55,7 @@ public class RobotContainer {
   public void addBoxes(){
     SmartDashboard.putNumber("Feet", 0);
     SmartDashboard.putNumber("Angle", 0);
+    SmartDashboard.putString("View", "Front");
   }
 
   /**
@@ -85,6 +87,7 @@ public class RobotContainer {
   private void initializeSensors(){
     m_gyro.init();
     m_lidar.init();
+    m_drivetrain.initMotor();
     m_drivetrain.initEncoder();
     m_shooter.init();
     m_index.init();
@@ -97,7 +100,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-
+    ///MoveInFeet(RobotContainer.m_move);
     return m_autonomousCommand;
   }
 }

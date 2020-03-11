@@ -56,8 +56,8 @@ public final class Constants {
       
     }
     public static final class DriveConstants {
-      public static final boolean kLeftEncoderReversed = false;
-      public static final boolean kRightEncoderReversed = true;
+      //public static final boolean kLeftEncoderReversed = false;
+      //public static final boolean kRightEncoderReversed = true;
       public static final double kSVolts= 0 ; //FeedForward values for drive
       public static final double kVVoltSecondsPerRotation = 0 ; //FeedForward values for drive
       public static final int kEncoderCPR = 20;

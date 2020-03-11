@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -39,20 +40,26 @@ public class Move extends ProfiledPIDSubsystem {
     // Use the output (and optionally the setpoint) here
     RobotContainer.m_drivetrain.ArcadeDrive(MathUtil.clamp(output,-Constants.DriveConstants.MaxAlignSpeed ,Constants.DriveConstants.MaxAlignSpeed),0 );
     //+ m_DriveFeedforward.calculate(setpoint ,0);
+    DriverStation.reportWarning("Using Output: " + output ,false);
   }
 
   @Override
   public double getMeasurement() {
     // Return the process variable measurement here
+    DriverStation.reportWarning("Getting Measurement" ,false);
     return RobotContainer.m_drivetrain.getAverageDistance();
    }
 
   public void setTarget(double targetInches){
+    DriverStation.reportWarning("Setting Target: " + targetInches ,false);
     getController().setGoal(targetInches);
   }
   
   // Returns true when the command should end.
   public boolean finished(){
+    if (getController().atSetpoint()){
+      DriverStation.reportWarning("Finished  " ,false);
+    }
     return(getController().atSetpoint());
   }
 }
