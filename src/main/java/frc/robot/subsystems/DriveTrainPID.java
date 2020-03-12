@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+/*
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -22,6 +22,7 @@ public class DriveTrainPID extends PIDSubsystem {
    * Creates a new DriveTrainPID.
    */
   // Right Side Motor Controllers
+  /*
   WPI_VictorSPX m_rightlead = new WPI_VictorSPX(CANBusID.kRightMotor1);
   WPI_VictorSPX m_rightfollow = new WPI_VictorSPX(CANBusID.kRightMotor2);
   
@@ -110,3 +111,4 @@ public class DriveTrainPID extends PIDSubsystem {
     SmartDashboard.putNumber("Left Encoder Distance",getLeftDistance());
   }
 }
+*/

@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+/*
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
@@ -19,7 +19,7 @@ public class Rotate extends ProfiledPIDSubsystem {
    * Creates a new Rotate.
    */
   //TO start:  Rotate.setGoal(TargetAngleDegrees); enable? 
-
+/*
   public Rotate() {
     super(
         // The ProfiledPIDController used by the subsystem
@@ -52,3 +52,4 @@ public class Rotate extends ProfiledPIDSubsystem {
     return getController().atSetpoint();
   }
 }
+*/

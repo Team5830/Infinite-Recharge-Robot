@@ -8,20 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Rotate;
+//import frc.robot.subsystems.Rotate;
 import frc.robot.subsystems.Move;
-import frc.robot.commands.TurnAbsDegrees;
+//import frc.robot.commands.TurnAbsDegrees;
 import frc.robot.commands.MoveInFeet;
 
 public class Autonomous extends SequentialCommandGroup {
-public Autonomous(Rotate turn, Move go) {
+/*public Autonomous(Rotate turn, Move go) {
 
     addCommands(
         new TurnAbsDegrees(turn,10.0),
         new MoveInFeet(go)
         );
 }
-
+*/
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

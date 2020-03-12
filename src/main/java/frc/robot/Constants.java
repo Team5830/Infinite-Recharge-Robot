@@ -78,13 +78,13 @@ public final class Constants {
       public static final double feetPerSec = 0.5;
       public static final double kPositionRateToleranceInchesPerS = feetPerSec*12;
       // PID parameters for drivetrain rotation
-      public static final double kTurnP = 1;
+      public static final double kTurnP = 0.025;
       public static final double kTurnI = 0;
       public static final double kTurnD = 0;
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;
-      public static final double MaxRotateSpeed = 0.2;
+      public static final double MaxRotateSpeed = 0.1;
   
       public static final double kTurnToleranceDeg = 0.5;
       public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
@@ -92,7 +92,7 @@ public final class Constants {
     public static final class ShooterConstants {
       public static final int waitforshootersecs = 10;
       public static final double feedmotorspeed = 0.5;
-      public static final double shootermotorspeed = 1000;
+      public static final double shootermotorspeed = 3200;
   
     }
     public static final class ClimberConstants {

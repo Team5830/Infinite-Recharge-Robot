@@ -25,7 +25,7 @@ private CANSparkMax m_rightfollowMotor;
 private CANPIDController m_pidController;
 private CANEncoder m_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
-public double motorspeed;
+public double motorspeed, velocity_out;
 public void init(){
     try{
         m_leftleadMotor = new CANSparkMax(Constants.CANBusID.leftShooterMotor, MotorType.kBrushless);
@@ -73,7 +73,7 @@ public void init(){
   @Override
   public void periodic() {
   
-    double velocity_out;
+    
     motorspeed = SmartDashboard.getNumber("Shooter Velocity", 0);
     
     // read PID coefficients from SmartDashboard
@@ -106,6 +106,7 @@ public void init(){
       DriverStation.reportError("Shooter: Not able to get velocity " + ex.getMessage(),true);
       velocity_out = 0;
     }
+
     SmartDashboard.putNumber("Shooter motor Velocity",velocity_out);
     SmartDashboard.putNumber("Output", m_leftleadMotor.getAppliedOutput());
   }
@@ -125,6 +126,10 @@ public void init(){
   SmartDashboard.putBoolean("shooteron", false);
   isshooteron = false;
  }
+
+ public boolean readyToShoot() {
+  return ( motorspeed-velocity_out < 1000 );
+}
 }
 
 

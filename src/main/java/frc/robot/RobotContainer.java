@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
@@ -27,10 +30,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveTrain m_drivetrain = new DriveTrain();
   public static final Move m_move = new Move();
-  public static final Rotate m_rotate = new Rotate();
+  //public static final Rotate m_rotate = new Rotate();
   public static final Joystick m_leftJoy = new Joystick(0);
   public static final Joystick m_rightJoy = new Joystick(1);
-  public static final CommandBase m_autonomousCommand = new Autonomous(m_rotate,m_move);
   public static final Gyro m_gyro = new Gyro();
   public static final LIDAR m_lidar = new LIDAR();
   public static final Shooter m_shooter = new Shooter();
@@ -40,11 +42,26 @@ public class RobotContainer {
   public static final Climber m_climber = new Climber();
   public static final Winch m_winch = new Winch();
 
+
+  public static final CommandBase m_autonomousCommand = 
+        new InstantCommand(m_shooter::shooteron).andThen(
+        // Wait until the shooter is at speed before feeding balls
+        new WaitUntilCommand(m_shooter::readyToShoot),
+        // Start running the feeder
+        new InstantCommand(m_feeder::feederon),
+        new WaitCommand(3)).withTimeout(10).andThen(() -> {
+          m_feeder.feederoff();
+          m_shooter.shooteroff();
+        }
+        );
+
+
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    m_shooter.init();
+    //m_shooter.init();
     initializeSensors();
     addBoxes();
     // Configure the button bindings
@@ -74,14 +91,14 @@ public class RobotContainer {
     Button extend_climber = new JoystickButton(m_rightJoy,8).whenPressed(new ExtendHook(m_climber));
     Button retract_climber = new JoystickButton(m_rightJoy,9).whenPressed(new RetractHook(m_climber));
     Button extend_winch = new JoystickButton(m_rightJoy, 10).whenPressed(new WinchToggle(m_winch));
-    Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_rotate,m_move));
+    //Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_rotate,m_move));
     Button pickup_button = new JoystickButton(m_rightJoy,12).whenPressed(new PickupPC(m_index, m_intake));
     // Left Joystick
     Button movetobutton = new JoystickButton(m_leftJoy,5).whenPressed(new MoveInFeet(m_move).withTimeout(5)) ;
-    Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new Rotate90(m_rotate).withTimeout(5));
-    Button face_left = new JoystickButton(m_leftJoy,4).whenPressed(new Rotatem90(m_rotate).withTimeout(5));
-    Button turn_to_angle = new JoystickButton(m_leftJoy,6).whenPressed(new TurnAbsDegrees(m_rotate,45.0).withTimeout(5));
-    
+    Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new TurnToAngle(90, m_drivetrain, m_gyro).withTimeout(5));
+    //Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new Rotate90(m_rotate).withTimeout(5));
+    //Button face_left = new JoystickButton(m_leftJoy,4).whenPressed(new Rotatem90(m_rotate).withTimeout(5));
+    //Button turn_to_angle = new JoystickButton(m_leftJoy,6).whenPressed(new TurnAbsDegrees(m_rotate,45.0).withTimeout(5));
   }
   
   private void initializeSensors(){

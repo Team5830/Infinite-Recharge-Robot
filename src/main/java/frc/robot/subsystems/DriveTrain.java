@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -31,16 +32,18 @@ public class DriveTrain extends SubsystemBase {
   WPI_VictorSPX m_leftlead = new WPI_VictorSPX(CANBusID.kLeftMotor1);
   WPI_VictorSPX m_leftfollow = new WPI_VictorSPX(CANBusID.kLeftMotor2);
   
- 
-
   DifferentialDrive m_drive ;//= new DifferentialDrive(m_leftlead, m_rightlead);
   
-  private Encoder m_leftencoder = new Encoder(Constants.Ports.leftDriveEncoder1, Constants.Ports.leftDriveEncoder2);
-  private Encoder m_rightencoder = new Encoder(Constants.Ports.rightDriveEncoder1, Constants.Ports.rightDriveEncoder2);
+  public Encoder m_leftencoder = new Encoder(Constants.Ports.leftDriveEncoder1, Constants.Ports.leftDriveEncoder2);
+  public Encoder m_rightencoder = new Encoder(Constants.Ports.rightDriveEncoder1, Constants.Ports.rightDriveEncoder2);
+  public DriveTrain() {
+    // Sets the distance per pulse for the encoders
+    m_leftencoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse); //6"/5 counts per rev
+    m_rightencoder.setDistancePerPulse (Constants.DriveConstants.kEncoderDistancePerPulse);
+  }
 
   public void initEncoder(){
-    m_leftencoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse); //6"/5 counts per rev
-    m_rightencoder.setDistancePerPulse (Constants.DriveConstants.kEncoderDistancePerPulse); 
+ 
   }
   
   public void initMotor(){
@@ -80,4 +83,5 @@ public class DriveTrain extends SubsystemBase {
       SmartDashboard.putNumber("Right Encoder Distance",getRightDistance());
       SmartDashboard.putNumber("Left Encoder Distance",getLeftDistance());
     }
-}
+
+  }
