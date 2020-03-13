@@ -94,7 +94,8 @@ public void init(){
     if (isshooteron){
       m_pidController.setReference(motorspeed, ControlType.kVelocity);
     }else{
-      m_pidController.setReference(0, ControlType.kVelocity);
+      //m_pidController.setReference(0, ControlType.kVelocity);
+      m_leftleadMotor.set(0);
     }
     if((max != kMaxOutput) || (min != kMinOutput)) { 
       m_pidController.setOutputRange(min, max); 

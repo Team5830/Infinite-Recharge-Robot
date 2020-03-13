@@ -13,6 +13,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CANBusID;
@@ -61,8 +64,6 @@ public class DriveTrain extends SubsystemBase {
   }
   
   public void ArcadeDrive(double xSpeed, double zRotation){
-    m_rightfollow.follow(m_rightlead);
-    m_leftfollow.follow(m_leftlead);
     m_drive.arcadeDrive(xSpeed, zRotation);
   }
 
@@ -75,6 +76,12 @@ public class DriveTrain extends SubsystemBase {
   public double getRightDistance(){
     return (-m_rightencoder.getDistance());
   }
+  public void reset_encoders(){
+    m_leftencoder.reset();
+    m_rightencoder.reset();
+
+  }
+
    public void periodic() {
       SmartDashboard.putNumber("Encoder Distance", getAverageDistance());
       SmartDashboard.putNumber("Right Encoder Distance",getRightDistance());

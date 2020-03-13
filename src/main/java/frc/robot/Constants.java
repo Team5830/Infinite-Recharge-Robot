@@ -92,7 +92,7 @@ public final class Constants {
     public static final class ShooterConstants {
       public static final int waitforshootersecs = 10;
       public static final double feedmotorspeed = 0.5;
-      public static final double shootermotorspeed = 1000;
+      public static final double shootermotorspeed = 3000;
   
     }
     public static final class ClimberConstants {
@@ -102,6 +102,6 @@ public final class Constants {
       public static final int kDriverControllerPort = 1;
     }
     public static final class WinchConstants{
-      public static final double winchmotorspeed = 0.34;
+      public static final double winchmotorspeed = 0.5;
     }
 }
