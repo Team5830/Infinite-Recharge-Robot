@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,12 +26,12 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public static final DriveTrain m_drivetrain = new DriveTrain();
-  public static final Move m_move = new Move();
+  public static final DriveTrainPID m_drivetrain = new DriveTrainPID();
+  //public static final Move m_move = new Move();
   public static final Rotate m_rotate = new Rotate();
   public static final Joystick m_leftJoy = new Joystick(0);
   public static final Joystick m_rightJoy = new Joystick(1);
-  public static final CommandBase m_autonomousCommand = new Autonomous(m_rotate,m_move);
+  //public static final CommandBase m_autonomousCommand;// = new Autonomous(m_rotate,m_move);
   public static final Gyro m_gyro = new Gyro();
   public static final LIDAR m_lidar = new LIDAR();
   public static final Shooter m_shooter = new Shooter();
@@ -44,7 +45,6 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    m_shooter.init();
     initializeSensors();
     addBoxes();
     // Configure the button bindings
@@ -73,11 +73,14 @@ public class RobotContainer {
     Button feeder_reverse_Button = new JoystickButton(m_rightJoy,6).whenPressed(new FeederReverse(m_feeder));
     Button extend_climber = new JoystickButton(m_rightJoy,8).whenPressed(new ExtendHook(m_climber));
     Button retract_climber = new JoystickButton(m_rightJoy,9).whenPressed(new RetractHook(m_climber));
-    Button extend_winch = new JoystickButton(m_rightJoy, 10).whenPressed(new WinchToggle(m_winch));
-    Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_rotate,m_move));
-    Button pickup_button = new JoystickButton(m_rightJoy,12).whenPressed(new PickupPC(m_index, m_intake));
+    Button retract_winch = new JoystickButton(m_rightJoy, 10).whenPressed(new WinchToggle(m_winch));
+    Button reverse_winch = new JoystickButton(m_rightJoy, 11).whenPressed(new WinchReverse(m_winch));
+    //Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_rotate,m_move));
+    //Button pickup_button = new JoystickButton(m_rightJoy,12).whenPressed(new PickupPC(m_index, m_intake));
     // Left Joystick
-    Button movetobutton = new JoystickButton(m_leftJoy,5).whenPressed(new MoveInFeet(m_move).withTimeout(5)) ;
+
+    //Button movetobutton = new JoystickButton(m_leftJoy,5).whenPressed(new TurnToAngle(45 ,m_drivetrain,m_gyro).withTimeout(5));
+    //Button movetobutton = new JoystickButton(m_leftJoy,5).whenPressed(new MoveToDistanceEncoder(12 ,m_drivetrain,true).withTimeout(5)) ;
     Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new Rotate90(m_rotate).withTimeout(5));
     Button face_left = new JoystickButton(m_leftJoy,4).whenPressed(new Rotatem90(m_rotate).withTimeout(5));
     Button turn_to_angle = new JoystickButton(m_leftJoy,6).whenPressed(new TurnAbsDegrees(m_rotate,45.0).withTimeout(5));
@@ -101,6 +104,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     ///MoveInFeet(RobotContainer.m_move);
+    DriverStation.reportWarning("Autonomous" ,false);
+    Command m_autonomousCommand  = new Autonomous(m_drivetrain);
     return m_autonomousCommand;
   }
 }
