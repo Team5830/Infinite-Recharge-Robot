@@ -26,7 +26,7 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public static final DriveTrainPID m_drivetrain = new DriveTrainPID();
+  public static final DriveTrain m_drivetrain = new DriveTrain();
   //public static final Move m_move = new Move();
   public static final Rotate m_rotate = new Rotate();
   public static final Joystick m_leftJoy = new Joystick(0);
@@ -64,6 +64,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+
   private void configureButtonBindings() {
     // Right Joystick
     Button shooter_button = new JoystickButton(m_rightJoy,1).whenPressed(new ShooterToggle(m_shooter));
@@ -84,7 +85,6 @@ public class RobotContainer {
     Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new Rotate90(m_rotate).withTimeout(5));
     Button face_left = new JoystickButton(m_leftJoy,4).whenPressed(new Rotatem90(m_rotate).withTimeout(5));
     Button turn_to_angle = new JoystickButton(m_leftJoy,6).whenPressed(new TurnAbsDegrees(m_rotate,45.0).withTimeout(5));
-    
   }
   
   private void initializeSensors(){

@@ -7,18 +7,14 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
-
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CANBusID;
+// import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -30,13 +26,10 @@ public class DriveTrain extends SubsystemBase {
   WPI_VictorSPX m_rightfollow = new WPI_VictorSPX(CANBusID.kRightMotor2);
   
   // Left Side Motor Controllers
-  
   WPI_VictorSPX m_leftlead = new WPI_VictorSPX(CANBusID.kLeftMotor1);
   WPI_VictorSPX m_leftfollow = new WPI_VictorSPX(CANBusID.kLeftMotor2);
   
- 
-
-  DifferentialDrive m_drive ;//= new DifferentialDrive(m_leftlead, m_rightlead);
+  DifferentialDrive m_drive;
   
   private Encoder m_leftencoder = new Encoder(Constants.Ports.leftDriveEncoder1, Constants.Ports.leftDriveEncoder2);
   private Encoder m_rightencoder = new Encoder(Constants.Ports.rightDriveEncoder1, Constants.Ports.rightDriveEncoder2);
@@ -52,14 +45,7 @@ public class DriveTrain extends SubsystemBase {
     m_drive = new DifferentialDrive(m_leftlead, m_rightlead);
   }
 
-
   public void TankDrive(double left, double right){
-    
-    //m_rightlead.setInverted(false); // pick CW versus CCW when motor controller is positive/green
-    //m_rightfollow.setInverted(InvertType.FollowMaster); // match whatever talon0 is
-    //m_leftlead.setInverted(false); // pick CW versus CCW when motor controller is positive/green
-    //m_leftfollow.setInverted(InvertType.FollowMaster); // match whatever talon0 is
-    //_victor0.setInverted(InvertType.OpposeMaster); // opposite whatever talon0 is
     m_drive.tankDrive(left, right);
   }
   
@@ -68,23 +54,25 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public double getAverageDistance(){
-  return (m_leftencoder.getDistance()+m_rightencoder.getDistance())/2;
+    return (m_leftencoder.getDistance()+m_rightencoder.getDistance())/2;
   }
+
   public double getLeftDistance(){
     return (m_leftencoder.getDistance());
   }
+
   public double getRightDistance(){
     return (-m_rightencoder.getDistance());
   }
+
   public void reset_encoders(){
     m_leftencoder.reset();
     m_rightencoder.reset();
-
   }
 
-   public void periodic() {
-      SmartDashboard.putNumber("Encoder Distance", getAverageDistance());
-      SmartDashboard.putNumber("Right Encoder Distance",getRightDistance());
-      SmartDashboard.putNumber("Left Encoder Distance",getLeftDistance());
-    }
+  public void periodic() {
+    SmartDashboard.putNumber("Encoder Distance", getAverageDistance());
+    SmartDashboard.putNumber("Right Encoder Distance",getRightDistance());
+    SmartDashboard.putNumber("Left Encoder Distance",getLeftDistance());
+  }
 }
