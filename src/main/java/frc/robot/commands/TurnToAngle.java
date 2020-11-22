@@ -7,12 +7,10 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants;
+import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants.DriveConstants;
-//import frc.robot.subsystems.Rotate;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 
@@ -25,10 +23,20 @@ public class TurnToAngle extends PIDCommand {
    *
    * @param targetAngleDegrees The angle to turn to
    * @param drive              The drive subsystem to use
+   * @param G                  The Gryo to get measurements from 
+   * @param kTurnP              Proportional feedback parameter
+   * @param kTurnI              Integral feedback parameter
+   * @param kTurnD              Derivative feedback parameter
+   * @param kTurnToleranceDeg   PID tolerance in degrees
+   * @param kTurnRateToleranceDegPerS PID rate tolerance in degrees/second
    */
-  public TurnToAngle(double targetAngleDegrees, DriveTrain drive, Gyro G) {
-    super(new PIDController(DriveConstants.kTurnP, DriveConstants.kTurnI, DriveConstants.kTurnD), 
-    G::getHeading, targetAngleDegrees, output -> drive.ArcadeDrive(0, output), drive);
+
+  public TurnToAngle(double targetAngleDegrees, DriveTrain drive, Gyro G, 
+  double kTurnP, double kTurnI, double kTurnD, double kTurnF, 
+  double kTurnToleranceDeg, double kTurnRateToleranceDegPerS) {
+    super(new PIDController(kTurnP, kTurnI, kTurnD), 
+    G::getHeading, targetAngleDegrees, output -> drive.ArcadeDrive(0,(output<0)?(MathUtil.clamp(output-kTurnF,-1.0,1.0)):(MathUtil.clamp(output+kTurnF,-1.0,1.0))), drive);
+       //drive.ArcadeDrive(0,(output<0)?(MathUtil.clamp(output-kTurnF,-1.0,1.0)):(MathUtil.clamp(output+kTurnF,-1.0,1.0)))
         
         // Close loop on heading
         //drive::getHeading,
@@ -44,7 +52,7 @@ public class TurnToAngle extends PIDCommand {
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
     getController()
-        .setTolerance(DriveConstants.kTurnToleranceDeg, DriveConstants.kTurnRateToleranceDegPerS);
+        .setTolerance(kTurnToleranceDeg, kTurnRateToleranceDegPerS);
   }
 
   @Override

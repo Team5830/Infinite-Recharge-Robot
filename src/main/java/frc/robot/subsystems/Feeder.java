@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,11 +20,11 @@ public class Feeder extends SubsystemBase {
   //DigitalInput ballsensor = new DigitalInput(Constants.Ports.shooterProximitySensor  );
   public boolean isfeederon = false;
   public void feedoneball(){
-    Indexing.feederSensor1.requestInterrupts();
-    Indexing.feederSensor1.setUpSourceEdge(false, true);  // Set to trigger on falling edge
+    Indexing.feederSensor3.requestInterrupts();
+    Indexing.feederSensor3.setUpSourceEdge(false, true);  // Set to trigger on falling edge
     feederon();
-    Indexing.feederSensor1.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
-    Indexing.feederSensor1.cancelInterrupts(); // Reset so we can use it again 
+    Indexing.feederSensor3.waitForInterrupt(Constants.ShooterConstants.waitforshootersecs);
+    Indexing.feederSensor3.cancelInterrupts(); // Reset so we can use it again 
     // Wait until ball passes -> ballsensor
     feederoff();
   }

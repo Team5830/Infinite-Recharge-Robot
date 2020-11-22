@@ -46,11 +46,11 @@ public final class Constants {
       public static final int winchMotor = 3;
       public static final int kLeftMotor1  = 4;
       public static final int kLeftMotor2  = 7;
-      public static final int secondintakeMotor =  9; //Talon SRX
+      public static final int secondintakeMotor =  6; //Talon SRX
       public static final int ShooterFeedMotor = 10;
       public static final int controlpanelMotor = 5; //Controller 5 is not working
       public static final int hookMotor = 8; 
-      public static final int firstintakeMotor =  6; //Talon SRX
+      public static final int firstintakeMotor =  9; //Talon SRX
       public static final int kRightMotor1 = 11;
       public static final int kRightMotor2 = 12;
       
@@ -68,31 +68,34 @@ public final class Constants {
   
       public static final boolean kGyroReversed = false;
       // PID parameters for drivetrain straight motion
-      public static final double MaxAlignSpeed = 0.2; 
-      public static final double MaxAlignAccel = 0.5;
-      public static final double kDriveP = 1;
+      public static final double AlignTolerance = 2;
+      public static final double MaxAlignSpeed = 1; 
+      public static final double MaxAlignAccel = 1;
+      public static final double kDriveP = 0.001;
       public static final double kDriveI = 0;
       public static final double kDriveD = 0;
+      public static final double kDriveF = 0.4;
 
       public static final double kPositionToleranceInches = 3;
       public static final double feetPerSec = 0.5;
       public static final double kPositionRateToleranceInchesPerS = feetPerSec*12;
       // PID parameters for drivetrain rotation
-      public static final double kTurnP = 0.025;
-      public static final double kTurnI = 0;
-      public static final double kTurnD = 0;
+      public static final double kTurnP = 2e-2;
+      public static final double kTurnI = 1e-3;
+      public static final double kTurnD = 0.001;
+      public static final double kTurnF = 0.4;
   
       public static final double kMaxTurnRateDegPerS = 100;
       public static final double kMaxTurnAccelerationDegPerSSquared = 300;
-      public static final double MaxRotateSpeed = 0.1;
+      public static final double MaxRotateSpeed = 1.0;
   
-      public static final double kTurnToleranceDeg = 0.5;
+      public static final double kTurnToleranceDeg = 1.0;
       public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
     }
     public static final class ShooterConstants {
       public static final int waitforshootersecs = 10;
       public static final double feedmotorspeed = 0.5;
-      public static final double shootermotorspeed = 3200;
+      public static final double shootermotorspeed = 2000; //3200;
   
     }
     public static final class ClimberConstants {
@@ -102,6 +105,6 @@ public final class Constants {
       public static final int kDriverControllerPort = 1;
     }
     public static final class WinchConstants{
-      public static final double winchmotorspeed = 0.34;
+      public static final double winchmotorspeed = 0.5;
     }
 }

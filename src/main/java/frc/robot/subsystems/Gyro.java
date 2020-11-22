@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyro extends SubsystemBase {
   public static AHRS ahrs;
+  public static double ret_value;
   public void init() {
       try {
           ahrs = new AHRS(SerialPort.Port.kUSB1);
@@ -30,11 +31,12 @@ public class Gyro extends SubsystemBase {
   //Divides the gyro angle by 360 and uses the remainder as the return value
   public double getHeading() {
       try {
-       return Math.IEEEremainder(ahrs.getAngle(), 360);
+        ret_value = Math.IEEEremainder(ahrs.getAngle(), 360);
+       return ret_value;
       } catch (RuntimeException ex) 
       {
           DriverStation.reportError("Error Getting heading:  " + ex.getMessage(), true);
-          return 0;
+          return -1000;
       }
 
   }

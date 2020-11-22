@@ -42,11 +42,11 @@ public void init(){
         }
     motorspeed = Constants.ShooterConstants.shootermotorspeed;
     // PID coefficients
-    kP = 0.0005;
-    kI = 0;
-    kD = 0; 
+    kP = 0.0012;//0.0005;
+    kI = 0.000006;
+    kD = 0.001; 
     kIz = 0; 
-    kFF = 0.000015;
+    kFF = 0.00015; //0.000015;
     kMaxOutput = 0.7; 
     kMinOutput = -0.7;
 
@@ -66,14 +66,13 @@ public void init(){
     SmartDashboard.putNumber("Feed Forward", kFF);
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
-    SmartDashboard.putNumber("Shooter Velocity", motorspeed);
+    SmartDashboard.putNumber("Shooter Velocity", 0);
     
   }
 
   @Override
   public void periodic() {
-  
-    
+
     motorspeed = SmartDashboard.getNumber("Shooter Velocity", 0);
     
     // read PID coefficients from SmartDashboard
@@ -92,9 +91,11 @@ public void init(){
     if((iz != kIz)) { m_pidController.setIZone(iz); kIz = iz; }
     if((ff != kFF)) { m_pidController.setFF(ff); kFF = ff; }
     if (isshooteron){
+      if((motorspeed==0)){motorspeed = Constants.ShooterConstants.shootermotorspeed;}
       m_pidController.setReference(motorspeed, ControlType.kVelocity);
     }else{
-      m_pidController.setReference(0, ControlType.kVelocity);
+      shooteroff();
+      //m_pidController.setReference(0, ControlType.kVelocity);
     }
     if((max != kMaxOutput) || (min != kMinOutput)) { 
       m_pidController.setOutputRange(min, max); 
@@ -108,22 +109,19 @@ public void init(){
     }
 
     SmartDashboard.putNumber("Shooter motor Velocity",velocity_out);
-    SmartDashboard.putNumber("Output", m_leftleadMotor.getAppliedOutput());
+    SmartDashboard.putNumber("Shooter Output", m_leftleadMotor.getAppliedOutput());
   }
  public boolean isshooteron = false;
  public void shooteron(){
    
-   //m_leftleadMotor.set(motorspeed);
    m_pidController.setReference(motorspeed, ControlType.kVelocity);
-   //m_rightfollowMotor.set(-motorspeed);
-   SmartDashboard.putBoolean("shooteron", true);
+   SmartDashboard.putBoolean("Shooter On", true);
    isshooteron = true;
  }
  public void shooteroff(){
   //m_pidController.setReference(motorspeed, ControlType.kVelocity);
   m_leftleadMotor.set(0);
-
-  SmartDashboard.putBoolean("shooteron", false);
+  SmartDashboard.putBoolean("Shooter On", false);
   isshooteron = false;
  }
 

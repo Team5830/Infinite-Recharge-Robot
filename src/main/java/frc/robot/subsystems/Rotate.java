@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-/*
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
@@ -15,11 +15,12 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants;
 
 public class Rotate extends ProfiledPIDSubsystem {
-  /**
+  /*
    * Creates a new Rotate.
    */
   //TO start:  Rotate.setGoal(TargetAngleDegrees); enable? 
-/*
+  private Gyro gyro;
+  private DriveTrain drive;
   public Rotate() {
     super(
         // The ProfiledPIDController used by the subsystem
@@ -40,8 +41,9 @@ public class Rotate extends ProfiledPIDSubsystem {
 
   @Override
   public double getMeasurement() {
-    // Return the process variable measurement here
-    return RobotContainer.m_gyro.getHeading();
+    double heading = gyro.getHeading();
+        return (heading != -1000) ? heading : -1000.0;
+        // -1000 means no measurement from gyro
   }
 
   public void setTarget(double TargetAngleDegrees){
@@ -52,4 +54,3 @@ public class Rotate extends ProfiledPIDSubsystem {
     return getController().atSetpoint();
   }
 }
-*/

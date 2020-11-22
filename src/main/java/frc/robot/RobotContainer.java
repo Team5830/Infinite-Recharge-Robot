@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -29,7 +30,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveTrain m_drivetrain = new DriveTrain();
-  public static final Move m_move = new Move();
+  //public static final Move m_move = new Move();
   //public static final Rotate m_rotate = new Rotate();
   public static final Joystick m_leftJoy = new Joystick(0);
   public static final Joystick m_rightJoy = new Joystick(1);
@@ -71,8 +72,15 @@ public class RobotContainer {
 
   public void addBoxes(){
     SmartDashboard.putNumber("Feet", 0);
-    SmartDashboard.putNumber("Angle", 0);
-    SmartDashboard.putString("View", "Front");
+    SmartDashboard.putNumber("TurnRelAngle", 10);
+    SmartDashboard.putNumber("Target", 1);
+    SmartDashboard.putString("View", "Intake");
+    SmartDashboard.putNumber("kTurnP",Constants.DriveConstants.kTurnP);
+    SmartDashboard.putNumber("kTurnI",Constants.DriveConstants.kTurnI);
+    SmartDashboard.putNumber("kTurnD",Constants.DriveConstants.kTurnD);
+    SmartDashboard.putNumber("kTurnF",Constants.DriveConstants.kTurnF);
+    SmartDashboard.putNumber("kTurnTolDeg",Constants.DriveConstants.kTurnToleranceDeg);
+    SmartDashboard.putNumber("kTurnTolRate",Constants.DriveConstants.kTurnRateToleranceDegPerS);
   }
 
   /**
@@ -85,17 +93,26 @@ public class RobotContainer {
     // Right Joystick
     Button shooter_button = new JoystickButton(m_rightJoy,1).whenPressed(new ShooterToggle(m_shooter));
     Button intake_a_button = new JoystickButton(m_rightJoy,3).whenPressed(new FirstintakeToggle());
-    Button feeder_button = new JoystickButton(m_rightJoy,4).whenPressed(new FeederToggle(m_feeder)); 
+    //Button feeder_button = new JoystickButton(m_rightJoy,4).whenPressed(new FeederToggle(m_feeder));
+    Button feeder_button = new JoystickButton(m_rightJoy,4).whenPressed(new FeedOne(m_feeder,m_index));
     Button intake_b_button = new JoystickButton(m_rightJoy,5).whenPressed(new SecondintakeToggle());
     Button feeder_reverse_Button = new JoystickButton(m_rightJoy,6).whenPressed(new FeederReverse(m_feeder));
     Button extend_climber = new JoystickButton(m_rightJoy,8).whenPressed(new ExtendHook(m_climber));
     Button retract_climber = new JoystickButton(m_rightJoy,9).whenPressed(new RetractHook(m_climber));
     Button extend_winch = new JoystickButton(m_rightJoy, 10).whenPressed(new WinchToggle(m_winch));
     //Button auto_button = new JoystickButton(m_rightJoy,11).whenPressed(new Autonomous(m_rotate,m_move));
-    Button pickup_button = new JoystickButton(m_rightJoy,12).whenPressed(new PickupPC(m_index, m_intake));
+    Button pickup_button = new JoystickButton(m_rightJoy,12).whenPressed( new PickupPC( m_index, m_intake, m_drivetrain, m_leftJoy, m_rightJoy)); 
+    
     // Left Joystick
-    Button movetobutton = new JoystickButton(m_leftJoy,5).whenPressed(new MoveInFeet(m_move).withTimeout(5)) ;
-    Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new TurnToAngle(90, m_drivetrain, m_gyro).withTimeout(5));
+    Button movetobutton = new JoystickButton(m_leftJoy,7).whenPressed(new MovePID(12,m_drivetrain,m_lidar,false).withTimeout(5));
+
+    Button face_front  = new JoystickButton(m_leftJoy,1).whenPressed( new TurnPID( 0, m_drivetrain, m_gyro).withTimeout(5));
+    Button face_left  = new JoystickButton(m_leftJoy,3).whenPressed(  new TurnPID( 90, m_drivetrain, m_gyro).withTimeout(5));
+    //Button face_left  = new JoystickButton(m_leftJoy,3).whenPressed(new TurnToAngle( 90, m_drivetrain, m_gyro,SmartDashboard.getNumber("kTurnP",Constants.DriveConstants.kTurnP), SmartDashboard.getNumber("kTurnI",Constants.DriveConstants.kTurnI), SmartDashboard.getNumber("kTurnD",Constants.DriveConstants.kTurnD), SmartDashboard.getNumber("kTurnF",Constants.DriveConstants.kTurnF),SmartDashboard.getNumber("kTurnTolDeg",Constants.DriveConstants.kTurnToleranceDeg),SmartDashboard.getNumber("kTurnTolRate",Constants.DriveConstants.kTurnRateToleranceDegPerS)).withTimeout(5));
+    Button face_right = new JoystickButton(m_leftJoy,4).whenPressed(new TurnPID( -90, m_drivetrain, m_gyro).withTimeout(5));
+    Button turn_left = new JoystickButton(m_leftJoy,5).whenPressed(new TurnPID( SmartDashboard.getNumber("TurnRelAngle",10), m_drivetrain, m_gyro).withTimeout(5));
+    Button turn_right = new JoystickButton(m_leftJoy,6).whenPressed(new TurnPID( -SmartDashboard.getNumber("TurnRelAngle",10), m_drivetrain, m_gyro).withTimeout(5));
+
     //Button face_right = new JoystickButton(m_leftJoy,3).whenPressed(new Rotate90(m_rotate).withTimeout(5));
     //Button face_left = new JoystickButton(m_leftJoy,4).whenPressed(new Rotatem90(m_rotate).withTimeout(5));
     //Button turn_to_angle = new JoystickButton(m_leftJoy,6).whenPressed(new TurnAbsDegrees(m_rotate,45.0).withTimeout(5));

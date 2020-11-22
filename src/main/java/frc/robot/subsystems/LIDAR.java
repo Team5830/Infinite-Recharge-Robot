@@ -46,6 +46,6 @@ public class LIDAR extends SubsystemBase {
   final double off  = 0; //offset for sensor. test with tape measure
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Distance", getDistance()); //put the distance on the dashboard
+    SmartDashboard.putNumber("LIDAR Distance", getDistance()); //put the distance on the dashboard
   }
 }

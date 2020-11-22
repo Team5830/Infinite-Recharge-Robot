@@ -7,12 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -33,7 +30,7 @@ public class DriveTrain extends SubsystemBase {
   WPI_VictorSPX m_leftfollow = new WPI_VictorSPX(CANBusID.kLeftMotor2);
   
   DifferentialDrive m_drive ;//= new DifferentialDrive(m_leftlead, m_rightlead);
-  
+ 
   public Encoder m_leftencoder = new Encoder(Constants.Ports.leftDriveEncoder1, Constants.Ports.leftDriveEncoder2);
   public Encoder m_rightencoder = new Encoder(Constants.Ports.rightDriveEncoder1, Constants.Ports.rightDriveEncoder2);
   public DriveTrain() {
@@ -64,6 +61,7 @@ public class DriveTrain extends SubsystemBase {
   }
   
   public void ArcadeDrive(double xSpeed, double zRotation){
+    System.out.println("Drive: " + xSpeed + ", "+zRotation);
     m_rightfollow.follow(m_rightlead);
     m_leftfollow.follow(m_leftlead);
     m_drive.arcadeDrive(xSpeed, zRotation);
